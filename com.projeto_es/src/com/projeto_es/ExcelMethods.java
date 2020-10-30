@@ -3,7 +3,11 @@ package com.projeto_es;
 public class ExcelMethods {
 
 	public ExcelMethods() {
-		// TODO Auto-generated constructor stub
+		System.out.println("Teste");
+	}
+	
+	public static void main(String[] args) {
+		
 	}
 
 }
