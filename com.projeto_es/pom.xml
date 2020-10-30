@@ -20,13 +20,7 @@
   </properties>
 
   <dependencies>
-  
-    <dependency>
-    	<groupId>junit</groupId>
-      	<artifactId>junit</artifactId>
-      	<version>3.8.1</version>
-    </dependency>
-    
+
     <dependency>
     	<groupId>org.apache.poi</groupId>
     	<artifactId>poi</artifactId>
@@ -45,14 +39,7 @@
     	<version>4.13.1</version>
     	<scope>test</scope>
 	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core -->
-	<dependency>
-    	<groupId>org.twitter4j</groupId>
-    	<artifactId>twitter4j-core</artifactId>
-    	<version>4.0.7</version>
-	</dependency>
-	
+		
   </dependencies>
 
   <build>
