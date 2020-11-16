@@ -28,6 +28,14 @@ public class ExcelMethods {
 		this.sh = sh;
 	}
 	
+	public void setWB(Workbook wb) {
+		this.wb = wb;
+	}
+	
+	public void setSH(Sheet sh) {
+		this.sh = sh;
+	}	
+	
 	/**
 	 * @param filedirectory
 	 * @return workbook or null if problem getting file occurs
