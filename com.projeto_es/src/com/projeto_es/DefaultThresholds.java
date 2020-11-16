@@ -13,7 +13,7 @@ public class DefaultThresholds {
 	
 	
 	public boolean isFeatureEnvy(int ATFD, int LAA, int NOFA) {
-		return ((ATFD>4 && LAA<0.428571) || (ATFD>4 && LAA>0.428571 && NOFA>6));
+		return ((ATFD>4 && LAA<0.428571) || (ATFD>4 && LAA>0.428571 && NOFA>6)); 
 		
 	}
 	
@@ -22,7 +22,7 @@ public class DefaultThresholds {
 	}
 	
 	public boolean isDataClass(int NOAM, int WMCNAMM, int NIM) {
-		return (NOAM > 2 && WMCNAMM < 21 && NIM <= 30);
+		return (NOAM > 2 && WMCNAMM < 21 && NIM <= 30); 
 	}
 	
 
