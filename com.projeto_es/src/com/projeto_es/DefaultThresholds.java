@@ -1,6 +1,7 @@
 package com.projeto_es;
 
-public class DefaultThresholds {
+public class DefaultThresholds extends Thresholds {
+	
 	
 	public DefaultThresholds () {
 		
@@ -18,7 +19,7 @@ public class DefaultThresholds {
 	}
 	
 	public boolean isGodClass(int WMCNAMM, int NOMNAMM, int RFC) {
-		return (WMCNAMM>47 || (WMCNAMM <= 47 && NOMNAMM >9 && RFC > 34));
+		return (WMCNAMM>47 || (WMCNAMM <= 47 && NOMNAMM >9 && RFC > 34)); 
 	}
 	
 	public boolean isDataClass(int NOAM, int WMCNAMM, int NIM) {

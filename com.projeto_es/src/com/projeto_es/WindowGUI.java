@@ -270,9 +270,7 @@ public class WindowGUI {
 					int CYCLO_metric = Integer.parseInt(CYCLO);
 					System.out.println(Integer.toString(LOC_metric));
 					System.out.println(Integer.toString(CYCLO_metric));
-					
-				
-					
+					LongMethodThresholds longMethod = new LongMethodThresholds (LOC_metric, CYCLO_metric);
 					
 				
 					
