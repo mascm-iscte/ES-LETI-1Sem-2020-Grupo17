@@ -263,6 +263,19 @@ public class WindowGUI {
 						    JOptionPane.WARNING_MESSAGE);
 				} else if(n==1) {
 					// add method here
+				
+					String LOC = JOptionPane.showInputDialog(frmExcelSearch, "Enter new LOC threshold:");
+					String CYCLO = JOptionPane.showInputDialog(frmExcelSearch, "Enter new CYCLO threshold:");
+					int LOC_metric = Integer.parseInt(LOC);
+					int CYCLO_metric = Integer.parseInt(CYCLO);
+					System.out.println(Integer.toString(LOC_metric));
+					System.out.println(Integer.toString(CYCLO_metric));
+					
+				
+					
+					
+				
+					
 					JOptionPane.showMessageDialog(frmExcelSearch,
 
 						    "Applied is_long_method thresholds",
@@ -270,6 +283,16 @@ public class WindowGUI {
 						    JOptionPane.WARNING_MESSAGE);
 				} else if(n==2) {
 					// add method here
+					String ATFD = JOptionPane.showInputDialog(frmExcelSearch, "Enter new LOC threshold:");
+					String LAA = JOptionPane.showInputDialog(frmExcelSearch, "Enter new CYCLO threshold:");
+					String NOFA = JOptionPane.showInputDialog(frmExcelSearch, "Enter new NOFA threshold:");
+					int ATFD_metric = Integer.parseInt(ATFD);
+					int LAA_metric = Integer.parseInt(LAA);
+					int NOFA_metric = Integer.parseInt(NOFA);
+					System.out.println(Integer.toString(ATFD_metric));
+					System.out.println(Integer.toString(LAA_metric));
+					System.out.println(Integer.toString(NOFA_metric));
+				
 					JOptionPane.showMessageDialog(frmExcelSearch,
 						    "Applied is_feature_envy thresholds",
 						    "Warning",
