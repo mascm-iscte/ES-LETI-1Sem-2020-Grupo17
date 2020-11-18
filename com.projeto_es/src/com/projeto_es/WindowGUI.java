@@ -95,12 +95,7 @@ public class WindowGUI {
 		frmExcelSearch.setFont(new Font("Calibri Light", Font.PLAIN, 14));
 		frmExcelSearch.setTitle("Excel Search");
 		
-		
-		
-		
-		
-		
-		
+
 		JButton btnNewButton = new JButton("Abrir");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override

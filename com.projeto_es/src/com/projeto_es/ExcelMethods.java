@@ -6,14 +6,14 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.hssf.usermodel.HSSFWorkbookFactory;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
 
 
 public class ExcelMethods {
@@ -51,11 +51,7 @@ public class ExcelMethods {
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(fileDir);
-
-			wb = XSSFWorkbookFactory.create(fis);
-
-
-
+			wb = WorkbookFactory.create(fis);
 			fis.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
