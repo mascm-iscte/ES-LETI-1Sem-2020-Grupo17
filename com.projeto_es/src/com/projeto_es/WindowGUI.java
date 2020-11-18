@@ -271,6 +271,51 @@ public class WindowGUI {
 					System.out.println(Integer.toString(LOC_metric));
 					System.out.println(Integer.toString(CYCLO_metric));
 					LongMethodThresholds longMethod = new LongMethodThresholds (LOC_metric, CYCLO_metric);
+					JTable long_table = new JTable();
+					Vector loc_values = new Vector();
+					int loc = 0;
+					int cyclo = 0;
+					for(int i = 1; i < method.getRows(); i++){
+						Vector loc_rows = new Vector();
+						for(int j = 0; j < method.getCols(); j++){
+							if(j == 4){
+								String loc_str = method.getCellContentStr(i, j);
+								loc = Integer.parseInt(loc_str);
+								loc_rows.add(method.getCellContentStr(i, j));
+								j++;
+								String cyclo_str = method.getCellContentStr(i, j);
+								cyclo = Integer.parseInt(cyclo_str);
+								loc_rows.add(method.getCellContentStr(i, j));
+								}
+							
+							else if(j==8) {
+								if(longMethod.isLongMethod(loc, cyclo,LOC_metric, CYCLO_metric)) {
+									loc_rows.add("TRUE");
+								}
+							
+								else {
+									loc_rows.add("FALSE");
+								}
+							}
+							else{
+								loc_rows.add(method.getCellContentStr(i, j));
+								}
+							}loc_values.add(loc_rows);
+							}
+					
+					DefaultTableModel long_model = new DefaultTableModel(loc_values,headers);
+					long_table.setModel(long_model);
+					long_table.setAutoCreateRowSorter(true);
+					JFrame long_frame = new JFrame();
+					JScrollPane long_scroll = new JScrollPane(long_table);
+					long_frame.setSize(800, 600);
+					long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					long_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					long_frame.setTitle("is_long_method Search");
+					long_frame.setVisible(true);
+					long_frame.setResizable(true);
+					long_frame.add(long_scroll);
+
 					
 				
 					
