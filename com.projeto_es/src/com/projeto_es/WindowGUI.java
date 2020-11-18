@@ -326,18 +326,68 @@ public class WindowGUI {
 						    JOptionPane.WARNING_MESSAGE);
 				} else if(n==2) {
 					// add method here
-					String ATFD = JOptionPane.showInputDialog(frmExcelSearch, "Enter new LOC threshold:");
-					String LAA = JOptionPane.showInputDialog(frmExcelSearch, "Enter new CYCLO threshold:");
+					String ATFD = JOptionPane.showInputDialog(frmExcelSearch, "Enter new ATFD threshold:");
+					String LAA = JOptionPane.showInputDialog(frmExcelSearch, "Enter new LAA threshold:");
 					String NOFA = JOptionPane.showInputDialog(frmExcelSearch, "Enter new NOFA threshold:");
 					int ATFD_metric = Integer.parseInt(ATFD);
-					int LAA_metric = Integer.parseInt(LAA);
+					double LAA_metric = Double.parseDouble(LAA);
 					int NOFA_metric = Integer.parseInt(NOFA);
 					System.out.println(Integer.toString(ATFD_metric));
-					System.out.println(Integer.toString(LAA_metric));
+					System.out.println(Double.toString(LAA_metric));
 					System.out.println(Integer.toString(NOFA_metric));
+					FeatureEnvyThresholds featureEnvy = new FeatureEnvyThresholds (ATFD_metric, LAA_metric, NOFA_metric);
+					JTable long_table = new JTable();
+					Vector fe_values = new Vector();
+					int atfd = 0;
+					double laa = 0;
+					int nofa = 0;
+					for(int i = 1; i < method.getRows(); i++){
+						Vector fe_rows = new Vector();
+						for(int j = 0; j < method.getCols(); j++){
+							if(j == 6){
+								String atfd_str = method.getCellContentStr(i, j);
+								atfd = Integer.parseInt(atfd_str);
+								fe_rows.add(method.getCellContentStr(i, j));
+								j++;
+								String laa_str = method.getCellContentStr(i, j);
+								laa = Double.parseDouble(laa_str);
+								fe_rows.add(method.getCellContentStr(i, j));
+								}
+							
+							else if(j==11) {
+								if(featureEnvy.isFeatureEnvy(atfd, laa, nofa, ATFD_metric, LAA_metric, NOFA_metric)) {
+									fe_rows.add("TRUE");
+								}
+							
+								else {
+									fe_rows.add("FALSE");
+								}
+							}
+							else{
+								fe_rows.add(method.getCellContentStr(i, j));
+								}
+							}fe_values.add(fe_rows);
+							}
+					
+					DefaultTableModel long_model = new DefaultTableModel(fe_values,headers);
+					long_table.setModel(long_model);
+					long_table.setAutoCreateRowSorter(true);
+					JFrame long_frame = new JFrame();
+					JScrollPane long_scroll = new JScrollPane(long_table);
+					long_frame.setSize(800, 600);
+					long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					long_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+					long_frame.setTitle("is_feature_envy Search");
+					long_frame.setVisible(true);
+					long_frame.setResizable(true);
+					long_frame.add(long_scroll);
+
+					
 				
+					
 					JOptionPane.showMessageDialog(frmExcelSearch,
-						    "Applied is_feature_envy thresholds",
+
+						    "Applied is_long_method thresholds",
 						    "Warning",
 						    JOptionPane.WARNING_MESSAGE);
 				}else if(n==3){

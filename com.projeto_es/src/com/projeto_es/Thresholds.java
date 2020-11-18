@@ -33,7 +33,7 @@ public class Thresholds {
 	public int getATFD_metric() {
 		return this.ATFD_metric;
 	}
-	public int getLAA_metric() {
+	public double getLAA_metric() {
 		return this.LAA_metric;
 	}
 	
@@ -42,7 +42,7 @@ public class Thresholds {
 	}
 	
 	
-	public boolean isFeatureEnvy(int ATFD, int LAA, int NOFA, int ATFD_metric, int LAA_metric, int NOFA_metric) {
+	public boolean isFeatureEnvy(int ATFD, double LAA, int NOFA, int ATFD_metric, double LAA_metric, int NOFA_metric) {
 		return ((ATFD>ATFD_metric && LAA<LAA_metric) || (ATFD>ATFD_metric && LAA>LAA_metric && NOFA>NOFA_metric));
 		
 	}
