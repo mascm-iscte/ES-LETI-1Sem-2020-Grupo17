@@ -274,10 +274,10 @@ public class WindowGUI {
 						    "Applied is_feature_envy thresholds",
 						    "Warning",
 						    JOptionPane.WARNING_MESSAGE);
-				}else{
+				}else if(n==3){
 					// add method here
 					JOptionPane.showMessageDialog(frmExcelSearch,
-						    "Applied Createed thresholds",
+						    "Applied Created thresholds",
 						    "Warning",
 						    JOptionPane.WARNING_MESSAGE);
 				}
