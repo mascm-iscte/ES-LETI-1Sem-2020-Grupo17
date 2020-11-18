@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -127,6 +128,9 @@ public class WindowGUI {
 							book = method.getWorkbook(file_path+"\\"+file_name);
 						if(os.indexOf("mac")>=0)
 							book = method.getWorkbook(file_path+"//"+file_name);
+						if(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") > 0)
+							book = method.getWorkbook(file_path+"//"+file_name);
+							
 						method.setWB(book);
 						method.setSH(book.getSheet("long-method"));
 						for (int i = 0; i < method.getCols(); i++) {
@@ -172,22 +176,63 @@ public class WindowGUI {
 			    sheet = book.getSheet("long-method");
 			    Row row = null;
 			    Cell cell = null;
-			    for (int i=0;i<model.getRowCount();i++) {
-			        row = sheet.getRow(i);
-			        for (int j=0;j<model.getColumnCount();j++) {
-			        	cell = row.getCell(j);
-			            cell.setCellValue((String) model.getValueAt(i, j));
-			        }
-			        
-			    }
-			    System.out.println("File saved");
 			    
-			    FileOutputStream out = new FileOutputStream("D:\\workbook.xls");
-			    book.write(out);
-			    out.close();
-			}  catch (IOException ex) {
+			    changesDetected = changed();
+			    
+			    if(changesDetected) {
+			    	Object[] options = {"Yes", "No"};
+			    	
+					int n = JOptionPane.showOptionDialog(frmExcelSearch,
+						"Changes found. Update workbook sheet?", "Save",
+								JOptionPane.YES_NO_CANCEL_OPTION,
+								JOptionPane.QUESTION_MESSAGE,
+								null,
+								options, options[1]);
+				if(n == 0) {
+					for (int i=0;i<model.getRowCount();i++) {
+				        row = sheet.getRow(i);
+				        for (int j=0;j<model.getColumnCount();j++) {
+				        	
+				        	cell = row.getCell(j);
+				            cell.setCellValue((String) model.getValueAt(i, j));
+				        }
+				        
+				    }
+				    System.out.println("File saved");
+				    
+				   FileOutputStream out = new FileOutputStream("D:\\workbook.xls");
+				   book.write(out);
+				   out.close();
+				   JOptionPane.showMessageDialog(frmExcelSearch,
+						    "Changes saved",
+						    "Warning",
+						    JOptionPane.WARNING_MESSAGE);
+				} 
+				}
+				if(!changesDetected) {
+					JOptionPane.showMessageDialog(frmExcelSearch,
+						    "No changes found",
+						    "Warning",
+						    JOptionPane.WARNING_MESSAGE);
+				}
+			    
+			    
+			    
+			} catch (IOException ex) {
 			    
 			}
+			}
+
+			private boolean changed() {
+				 for (int i=0;i<model.getRowCount();i++) {
+				        for (int j=0;j<model.getColumnCount();j++) {
+				        	if(!table.getValueAt(i, j).equals(method.getCellContentStr(i, j))) { 
+								return true;
+							}
+				        }
+				        
+				    }
+				return false;
 			}});
 			
 	
