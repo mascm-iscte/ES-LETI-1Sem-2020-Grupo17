@@ -31,6 +31,10 @@ public class ExcelMethods {
 		this.sh = sh;
 	}
 	
+	public ExcelMethods() {
+		
+	}
+	
 	public void setWB(Workbook wb) {
 		this.wb = wb;
 	}
@@ -162,11 +166,17 @@ public class ExcelMethods {
 		return sumDiferences;
 	}
 	
+	public void setValue(String value, int row, int col) {
+		Cell cell =	sh.getRow(row).getCell(col);
+		cell.setCellValue(value);
+	}
+	
 	
 	
 	//testes
 	public static void main(String[] args) {
 		
 	}
+
 
 }
