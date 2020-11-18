@@ -121,7 +121,12 @@ public class WindowGUI {
 						file_path = chooser.getCurrentDirectory().toString();
 						file_name = chooser.getSelectedFile().getName();
 						method = new ExcelMethods(book, sheet);
-						book = method.getWorkbook(file_path+"\\"+file_name);
+						// OS validation
+						String os = System.getProperty("os.name").toLowerCase();
+						if(os.indexOf("win")>=0)
+							book = method.getWorkbook(file_path+"\\"+file_name);
+						if(os.indexOf("mac")>=0)
+							book = method.getWorkbook(file_path+"//"+file_name);
 						method.setWB(book);
 						method.setSH(book.getSheet("long-method"));
 						for (int i = 0; i < method.getCols(); i++) {
