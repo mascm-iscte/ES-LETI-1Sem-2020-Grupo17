@@ -129,7 +129,7 @@ public class WindowGUI {
 						if(os.indexOf("mac")>=0)
 							book = method.getWorkbook(file_path+"//"+file_name);
 						if(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") > 0)
-							book = method.getWorkbook(file_path+"\\"+file_name);
+							book = method.getWorkbook(file_path+"//"+file_name);
 							
 						method.setWB(book);
 						method.setSH(book.getSheet("long-method"));
