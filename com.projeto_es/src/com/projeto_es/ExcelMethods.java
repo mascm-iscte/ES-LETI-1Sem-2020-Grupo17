@@ -13,6 +13,9 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbookFactory;
+
+
 public class ExcelMethods {
 	
 	private Workbook wb = null;
@@ -44,7 +47,11 @@ public class ExcelMethods {
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(fileDir);
-			wb = HSSFWorkbookFactory.create(fis);
+
+			wb = XSSFWorkbookFactory.create(fis);
+
+
+
 			fis.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
