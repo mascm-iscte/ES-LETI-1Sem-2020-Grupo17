@@ -9,11 +9,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CreationHelper;
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
@@ -22,29 +22,22 @@ import javax.swing.JFileChooser;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
+
 import java.io.FileOutputStream;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.util.Vector;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.graphbuilder.struc.LinkedList;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
+
 
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Rectangle;
-import java.awt.Button;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -52,8 +45,8 @@ public class WindowGUI {
 
 	protected static final Component parent = null;
 	private JFrame frmExcelSearch;
-	Vector headers = new Vector();
-	Vector data = new Vector();
+	Vector<String> headers = new Vector<String>();
+	Vector<Vector<String>> data = new Vector<Vector<String>>();
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JButton btnNewButton_3;
@@ -139,7 +132,7 @@ public class WindowGUI {
 						}
 						data.clear();
 						for (int i = 0; i < method.getRows(); i++) {
-						Vector d = new Vector();
+						Vector<String> d = new Vector<String>();
 							for (int j = 0; j < method.getCols(); j++) {
 								String auxx = method.getCellContentStr(i, j);
 								d.add(auxx);
@@ -172,7 +165,7 @@ public class WindowGUI {
 			public void actionPerformed(ActionEvent e) {
 				try {
 				boolean changesDetected = false;
-			    CreationHelper createhelper = book.getCreationHelper();
+			    //CreationHelper createhelper = book.getCreationHelper();
 			    sheet = book.getSheet("long-method");
 			    Row row = null;
 			    Cell cell = null;
