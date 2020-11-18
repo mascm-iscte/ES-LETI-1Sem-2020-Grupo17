@@ -22,7 +22,9 @@ import javax.swing.JFileChooser;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileOutputStream;
 
 import java.io.IOException;
@@ -94,6 +96,20 @@ public class WindowGUI {
 		frmExcelSearch.setForeground(Color.BLUE);
 		frmExcelSearch.setFont(new Font("Calibri Light", Font.PLAIN, 14));
 		frmExcelSearch.setTitle("Excel Search");
+		WindowListener exitListener = new WindowAdapter() {
+
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		        int confirm = JOptionPane.showOptionDialog(
+		             null, "Are You Sure to Close Application?", 
+		             "Exit Confirmation", JOptionPane.YES_NO_OPTION, 
+		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+		        if (confirm == 0) {
+		        	System.exit(0);
+		        }
+		    }
+		};
+		frmExcelSearch.addWindowListener(exitListener);
 		
 
 		JButton btnNewButton = new JButton("Abrir");
@@ -232,6 +248,41 @@ public class WindowGUI {
 		btnNewButton_2 = new JButton("Thresholds");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Object[] options = {"Default", "is_long_method metrics", "is_feature_envy metrics", "Create"};
+				int n = JOptionPane.showOptionDialog(frmExcelSearch,
+					"Thresholds Options", "Save",
+							JOptionPane.YES_NO_CANCEL_OPTION,
+							JOptionPane.QUESTION_MESSAGE,
+							null,
+							options, options[3]);
+				if(n==0) {
+					// add method here
+					JOptionPane.showMessageDialog(frmExcelSearch,
+						    "Applied default thresholds",
+						    "Warning",
+						    JOptionPane.WARNING_MESSAGE);
+				} else if(n==1) {
+					// add method here
+					JOptionPane.showMessageDialog(frmExcelSearch,
+
+						    "Applied is_long_method thresholds",
+						    "Warning",
+						    JOptionPane.WARNING_MESSAGE);
+				} else if(n==2) {
+					// add method here
+					JOptionPane.showMessageDialog(frmExcelSearch,
+						    "Applied is_feature_envy thresholds",
+						    "Warning",
+						    JOptionPane.WARNING_MESSAGE);
+				}else{
+					// add method here
+					JOptionPane.showMessageDialog(frmExcelSearch,
+						    "Applied Createed thresholds",
+						    "Warning",
+						    JOptionPane.WARNING_MESSAGE);
+				}
+				
+				
 			}
 		});
 		
