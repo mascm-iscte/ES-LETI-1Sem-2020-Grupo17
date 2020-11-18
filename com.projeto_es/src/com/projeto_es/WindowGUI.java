@@ -87,6 +87,7 @@ public class WindowGUI {
 	 */
 	private void initialize() {
 		frmExcelSearch = new JFrame();
+		frmExcelSearch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmExcelSearch.setSize(1200, 800);
 		frmExcelSearch.getContentPane().setBounds(new Rectangle(1000, 1000, 1200, 800));
 		frmExcelSearch.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
