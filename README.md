@@ -5,9 +5,9 @@ Grupo: 17
 
 Elementos:
 - Francisco Arruda Ferreira 82927
--
--
--
+- Rafael Zagalo 82937
+- Pedro Guerreiro 73424
+- Miguel Martins 83675
 
 
 
