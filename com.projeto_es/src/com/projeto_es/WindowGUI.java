@@ -309,7 +309,7 @@ public class WindowGUI {
 					JFrame long_frame = new JFrame();
 					JScrollPane long_scroll = new JScrollPane(long_table);
 					long_frame.setSize(800, 600);
-					long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					long_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					long_frame.setTitle("is_long_method Search");
 					long_frame.setVisible(true);
@@ -375,7 +375,7 @@ public class WindowGUI {
 					JFrame long_frame = new JFrame();
 					JScrollPane long_scroll = new JScrollPane(long_table);
 					long_frame.setSize(800, 600);
-					long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					long_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					long_frame.setTitle("is_feature_envy Search");
 					long_frame.setVisible(true);
