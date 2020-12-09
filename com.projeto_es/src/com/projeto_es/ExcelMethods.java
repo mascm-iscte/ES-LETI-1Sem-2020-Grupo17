@@ -161,7 +161,14 @@ public class ExcelMethods {
 		}	
 		return sumDiferences;
 	}
-	
+	/**
+	 * 
+	 * @param value
+	 * @param row
+	 * @param col
+	 * 
+	 * Sets value in a cell in current sheet
+	 */
 	public void setValue(String value, int row, int col) {
 		Cell cell =	sh.getRow(row).getCell(col);
 		cell.setCellValue(value);
