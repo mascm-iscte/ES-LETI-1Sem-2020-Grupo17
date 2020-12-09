@@ -5,7 +5,6 @@ public class Thresholds {
 	private int CYCLO_metric;
 	private int ATFD_metric;
 	private int LAA_metric;
-	private int NOFA_metric;
 	
 	public Thresholds(){
 	}
