@@ -272,11 +272,11 @@ public class WindowGUI {
 					System.out.println(Integer.toString(CYCLO_metric));
 					LongMethodThresholds longMethod = new LongMethodThresholds (LOC_metric, CYCLO_metric);
 					JTable long_table = new JTable();
-					Vector loc_values = new Vector();
+					Vector<Vector<String>> loc_values = new Vector<Vector<String>>();
 					int loc = 0;
 					int cyclo = 0;
 					for(int i = 1; i < method.getRows(); i++){
-						Vector loc_rows = new Vector();
+						Vector<String> loc_rows = new Vector<String>();
 						for(int j = 0; j < method.getCols(); j++){
 							if(j == 4){
 								String loc_str = method.getCellContentStr(i, j);
@@ -309,7 +309,7 @@ public class WindowGUI {
 					JFrame long_frame = new JFrame();
 					JScrollPane long_scroll = new JScrollPane(long_table);
 					long_frame.setSize(800, 600);
-					long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					long_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					long_frame.setTitle("is_long_method Search");
 					long_frame.setVisible(true);
@@ -337,12 +337,12 @@ public class WindowGUI {
 					System.out.println(Integer.toString(NOFA_metric));
 					FeatureEnvyThresholds featureEnvy = new FeatureEnvyThresholds (ATFD_metric, LAA_metric, NOFA_metric);
 					JTable long_table = new JTable();
-					Vector fe_values = new Vector();
+					Vector<Vector<String>> fe_values = new Vector<Vector<String>>();
 					int atfd = 0;
 					double laa = 0;
 					int nofa = 0;
 					for(int i = 1; i < method.getRows(); i++){
-						Vector fe_rows = new Vector();
+						Vector<String> fe_rows = new Vector<String>();
 						for(int j = 0; j < method.getCols(); j++){
 							if(j == 6){
 								String atfd_str = method.getCellContentStr(i, j);
@@ -375,7 +375,7 @@ public class WindowGUI {
 					JFrame long_frame = new JFrame();
 					JScrollPane long_scroll = new JScrollPane(long_table);
 					long_frame.setSize(800, 600);
-					long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					//long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					long_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					long_frame.setTitle("is_feature_envy Search");
 					long_frame.setVisible(true);
