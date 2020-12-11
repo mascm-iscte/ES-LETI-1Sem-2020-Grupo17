@@ -69,6 +69,7 @@ public class WindowGUI {
 	private String isLongMethod;
 	private String isFeatureEnvy;
 	private boolean fileExistes = false;
+	private boolean changesDetected = false;
 
 	/**
 	 * Launch the application.
@@ -188,8 +189,13 @@ public class WindowGUI {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					boolean changesDetected = false;
-
+					if(!changesDetected) {
+						JOptionPane.showMessageDialog(frmExcelSearch,
+								"No changes detected!!",
+								"Warning",
+								JOptionPane.WARNING_MESSAGE);
+						return;
+					}
 					sheet = book.getSheet("long-method");
 					Row row = null;
 					Cell cell = null;
@@ -209,7 +215,6 @@ public class WindowGUI {
 							for (int i=0;i<model.getRowCount();i++) {
 								row = sheet.getRow(i);
 								for (int j=0;j<model.getColumnCount();j++) {
-
 									cell = row.getCell(j);
 									cell.setCellValue((String) model.getValueAt(i, j));
 								}
@@ -268,13 +273,15 @@ public class WindowGUI {
 			private boolean changed() {
 				for (int i=0;i<model.getRowCount();i++) {
 					for (int j=0;j<model.getColumnCount();j++) {
-						if(!table.getValueAt(i, j).equals(method.getCellContentStr(i, j))) { 
-							return true;
+						if(!table.getValueAt(i, j).equals(method.getCellContentStr(i, j))) {
+							changesDetected = true;
+							return changesDetected;
 						}
 					}
 
 				}
-				return false;
+				changesDetected = false;
+				return changesDetected;
 			}});
 
 
