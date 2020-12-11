@@ -88,6 +88,7 @@ public class WindowGUI {
 	}
 
 	/**
+	 * Constructor
 	 * Create the application.
 	 */
 	public WindowGUI() {
@@ -99,7 +100,7 @@ public class WindowGUI {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frmExcelSearch = new JFrame();
 		frmExcelSearch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmExcelSearch.setSize(1200, 800);
@@ -109,8 +110,8 @@ public class WindowGUI {
 		frmExcelSearch.setFont(new Font("Calibri Light", Font.PLAIN, 14));
 		frmExcelSearch.setTitle("Excel Search");
 		WindowListener exitListener = new WindowAdapter() {
+			
 			/**
-			 * Warning message before closing program
 			 * @param e Click on "Close" icon
 			 */
 			@Override
@@ -132,10 +133,9 @@ public class WindowGUI {
 
 		JButton btnNewButton = new JButton("Abrir");
 		btnNewButton.addMouseListener(new MouseAdapter() {
+			
 			/**
-			 * Opens a workbook after chooses a .xlsl file as input
-			 * @param Clicking on "Abrir" button triggers a JFileChooser that displays .xlsl files
-			 * 
+			 * @param e Clicking on "Abrir" button triggers a JFileChooser that displays .xlsl files
 			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -183,11 +183,10 @@ public class WindowGUI {
 			}
 
 			/**
-			 * Gets the appropriate pathname for each different OS(Windows, Mac, Linux)
 			 * @param os Operating System Name
 			 * @return book Workbook with data from .xlsl file
 			 */
-			private Workbook validateOS(String os) {
+			public Workbook validateOS(String os) {
 				if(os.indexOf("win")>=0)
 					book = method.getWorkbook(file_path+"\\"+file_name);
 				if(os.indexOf("mac")>=0)
@@ -200,8 +199,8 @@ public class WindowGUI {
 
 		btnNewButton_1 = new JButton("Save");
 		btnNewButton_1.addActionListener(new ActionListener() {
+			
 			/**
-			 * Saves the current JTable onto a file
 			 * @param e Clicking on "Save" button triggers current table saving
 			 * 
 			 */
@@ -289,10 +288,9 @@ public class WindowGUI {
 			}
 			
 			/**
-			 * Detects changes in current JTable
 			 * @return changesDetected "TRUE" if there are user changes detected in the current table
 			 */
-			private boolean changed() {
+			public boolean changed() {
 				for (int i=0;i<model.getRowCount();i++) {
 					for (int j=0;j<model.getColumnCount();j++) {
 						if(!table.getValueAt(i, j).equals(method.getCellContentStr(i, j))) {
@@ -313,10 +311,9 @@ public class WindowGUI {
 
 		btnNewButton_2 = new JButton("Thresholds");
 		btnNewButton_2.addActionListener(new ActionListener() {
+			
 			/**
-			 * Asks for user metrics and defines defects in tool(iPlasma/PMD) and definition searching(isLongMethod/isFeatureEnvy) 
 			 * @param e Clicked on "Thresholds" button
-			 * 
 			 */
 			public void actionPerformed(ActionEvent e) {
 				if(!fileExistes) {
@@ -405,14 +402,12 @@ public class WindowGUI {
 
 
 			}
+			
 			/**
-			 * Creates a table for a isFeatureEnvy search
 			 * @param ATFD number of accessed methods from other classes for given method
 			 * @param LAA number of accessed method from own class for given method
-			 * 
 			 */
-
-			private void makeTableFeature(String ATFD, String LAA) {
+			public void makeTableFeature(String ATFD, String LAA) {
 				int ATFD_metric = Integer.parseInt(ATFD);
 				double LAA_metric = Double.parseDouble(LAA);
 				sub_headers.add("MethodID");
@@ -526,12 +521,12 @@ public class WindowGUI {
 				sub_frame.add(sub_footer, BorderLayout.SOUTH);
 
 			}
+			
 			/**
-			 * Creates a table for a isLongMethod search
 			 * @param LOC number of lines of code for given method
 			 * @param CYCLO cyclomatic complexity for given method
 			 */
-			private void makeTableLongMethod(String LOC, String CYCLO) {
+			public void makeTableLongMethod(String LOC, String CYCLO) {
 				int LOC_metric = Integer.parseInt(LOC);
 				int CYCLO_metric = Integer.parseInt(CYCLO);
 				LongMethodThresholds longMethod = new LongMethodThresholds (LOC_metric, CYCLO_metric);
