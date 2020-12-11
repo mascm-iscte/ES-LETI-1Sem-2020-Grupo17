@@ -232,8 +232,16 @@ public class WindowGUI {
 											"Warning",
 											JOptionPane.WARNING_MESSAGE);
 									return;
-								}  
-								FileOutputStream out = new FileOutputStream(chooser.getSelectedFile()+"\\"+filename);
+								}
+								FileOutputStream out = null;
+								String os = System.getProperty("os.name").toLowerCase();
+								if(os.indexOf("win")>=0)
+									out = new FileOutputStream(chooser.getSelectedFile()+"\\"+filename);
+								if(os.indexOf("mac")>=0)
+									out = new FileOutputStream(chooser.getSelectedFile()+"\\"+filename);
+								if(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") > 0)
+									out = new FileOutputStream(chooser.getSelectedFile()+"\\"+filename);
+								
 								book.write(out);
 								out.close();
 								JOptionPane.showMessageDialog(frmExcelSearch,
