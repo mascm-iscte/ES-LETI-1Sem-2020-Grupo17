@@ -2,7 +2,7 @@ package com.projeto_es;
 
 import java.util.InputMismatchException;
 
-public class QualityFactors {
+public class QualityFactors  {
 
 	public QualityFactors() {
 	}
