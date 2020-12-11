@@ -41,8 +41,8 @@ public class Thresholds {
 	}
 	
 	
-	public boolean isFeatureEnvy(int ATFD, double LAA, int NOFA, int ATFD_metric, double LAA_metric, int NOFA_metric) {
-		return ((ATFD>ATFD_metric && LAA<LAA_metric) || (ATFD>ATFD_metric && LAA>LAA_metric && NOFA>NOFA_metric));
+	public boolean isFeatureEnvy(int ATFD, double LAA, int ATFD_metric, double LAA_metric) {
+		return ((ATFD>ATFD_metric && LAA<LAA_metric));
 		
 	}
 	public boolean isGodClass (int WMCNAMM, int WMCNAMM_metric, int NOMNAMM, int NOMNAMM_metric, int RFC, int RFC_metric){
