@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,6 +37,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 import java.awt.Font;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Rectangle;
@@ -373,14 +375,17 @@ public class WindowGUI {
 					sub_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					long_frame.setTitle("is_long_method Search");
 					sub_frame.setTitle("is_long_method Results");
+					BorderLayout border = new BorderLayout();
+					sub_frame.setLayout(border);
 					long_frame.setVisible(true);
 					long_frame.setResizable(true);
 					long_frame.add(long_scroll);
 					sub_frame.setVisible(true);
 					sub_frame.setResizable(true);
-					sub_frame.add(sub_scroll);
-				
-					
+					sub_frame.add(sub_scroll, BorderLayout.CENTER);
+					JTextField sub_footer = new JTextField();
+					sub_footer.setText("Metrics: LOC = "+ LOC + " CYCLO = " + CYCLO + " (is_long_method)");
+					sub_frame.add(sub_footer, BorderLayout.SOUTH);
 					JOptionPane.showMessageDialog(frmExcelSearch,
 
 						    "Applied is_long_method thresholds",
@@ -490,12 +495,17 @@ public class WindowGUI {
 					sub_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 					long_frame.setTitle("is_feature_envy Search");
 					sub_frame.setTitle("is_feature_envy Results");
+					BorderLayout border = new BorderLayout();
+					sub_frame.setLayout(border);
 					long_frame.setVisible(true);
 					long_frame.setResizable(true);
 					long_frame.add(long_scroll);
 					sub_frame.setVisible(true);
 					sub_frame.setResizable(true);
-					sub_frame.add(sub_scroll);
+					sub_frame.add(sub_scroll, BorderLayout.CENTER);
+					JTextField sub_footer = new JTextField();
+					sub_footer.setText("Metrics: ATFD = "+ ATFD + " LAA = " + LAA + " (is_feature_envy)");
+					sub_frame.add(sub_footer, BorderLayout.SOUTH);
 					
 					
 				
