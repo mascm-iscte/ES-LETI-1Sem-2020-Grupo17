@@ -45,14 +45,6 @@ public class Thresholds {
 		return ((ATFD>ATFD_metric && LAA<LAA_metric));
 		
 	}
-	public boolean isGodClass (int WMCNAMM, int WMCNAMM_metric, int NOMNAMM, int NOMNAMM_metric, int RFC, int RFC_metric){
-		return ((WMCNAMM < WMCNAMM_metric) || (WMCNAMM<= WMCNAMM_metric && NOMNAMM > NOMNAMM_metric && RFC>RFC_metric));
-	}
-	public boolean isDataClass (int NOAM, int NOAM_metric, int WMCNAMM, int WMCNAMM_metric, int NIM, int NIM_metric){
-		return NOAM>NOAM_metric && WMCNAMM<WMCNAMM_metric && NIM<=NIM_metric; 
-	}
-	
-	
 	
 	
 	
