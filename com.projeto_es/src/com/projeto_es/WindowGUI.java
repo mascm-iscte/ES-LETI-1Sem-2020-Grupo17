@@ -238,9 +238,9 @@ public class WindowGUI {
 								if(os.indexOf("win")>=0)
 									out = new FileOutputStream(chooser.getSelectedFile()+"\\"+filename);
 								if(os.indexOf("mac")>=0)
-									out = new FileOutputStream(chooser.getSelectedFile()+"\\"+filename);
+									out = new FileOutputStream(chooser.getSelectedFile()+"//"+filename);
 								if(os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0 || os.indexOf("aix") > 0)
-									out = new FileOutputStream(chooser.getSelectedFile()+"\\"+filename);
+									out = new FileOutputStream(chooser.getSelectedFile()+"//"+filename);
 								
 								book.write(out);
 								out.close();
