@@ -123,6 +123,7 @@ public class WindowGUI {
 				}
 			}
 		};
+		
 		frmExcelSearch.addWindowListener(exitListener);
 
 
@@ -141,7 +142,7 @@ public class WindowGUI {
 						file_path = chooser.getCurrentDirectory().toString();
 						file_name = chooser.getSelectedFile().getName();
 						method = new ExcelMethods(book, sheet);
-						book = validadeOS(System.getProperty("os.name").toLowerCase());
+						book = validateOS(System.getProperty("os.name").toLowerCase());
 						method.setWB(book);
 						method.setSH(book.getSheet("long-method"));
 						headers.clear();
@@ -164,7 +165,6 @@ public class WindowGUI {
 					catch (Exception e1) {
 						e1.printStackTrace();
 					}
-
 					model = new DefaultTableModel(data,headers);
 					table.setModel(model);
 					table.setAutoCreateRowSorter(true);
@@ -174,7 +174,12 @@ public class WindowGUI {
 				}
 			}
 
-			private Workbook validadeOS(String os) {
+			/**
+			 * 
+			 * @param Operating System Name
+			 * @return workbook
+			 */
+			private Workbook validateOS(String os) {
 				if(os.indexOf("win")>=0)
 					book = method.getWorkbook(file_path+"\\"+file_name);
 				if(os.indexOf("mac")>=0)
@@ -310,6 +315,7 @@ public class WindowGUI {
 						options, options[3]);
 				if(n==0) {
 					// add method here
+					DefaultThresholds dt = new DefaultThresholds();
 					Object[] optionsDefault = {"Default is_Long_Method", "Default is_feature_envy"};
 					int nDefault = JOptionPane.showOptionDialog(frmExcelSearch,
 							"Thresholds Options", "Save",
@@ -318,12 +324,12 @@ public class WindowGUI {
 							null,
 							optionsDefault, optionsDefault[1]);
 					if(nDefault == 0) {
-						String LOC = "80", CYCLO = "10";
+						String LOC = dt.getLoc(), CYCLO = dt.getCyclo();
 						makeTableLongMethod(LOC,CYCLO);
 					}
 
 					if(nDefault == 1) {
-						String ATFD = "4", LAA = "0.428571";
+						String ATFD = dt.getATFD(), LAA = dt.getLAA();
 						makeTableFeature(ATFD,LAA);
 					}
 
