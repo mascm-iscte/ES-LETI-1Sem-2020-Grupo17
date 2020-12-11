@@ -49,23 +49,24 @@ public class WindowGUI {
 
 	protected static final Component parent = null;
 	private JFrame frmExcelSearch;
-	Vector<String> headers = new Vector<String>();
-	Vector<String> sub_headers = new Vector<String>();
-	Vector<Vector<String>> data = new Vector<Vector<String>>();
+	private Vector<String> headers = new Vector<String>();
+	private Vector<String> sub_headers = new Vector<String>();
+	private Vector<Vector<String>> data = new Vector<Vector<String>>();
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JButton btnNewButton_3;
-	JTable table = new JTable();
-	String file_path;
-	String file_name;
-	ExcelMethods method;
-	DefaultTableModel model;
-	Workbook book = null;
-	Sheet sheet = null;
-	String iPlasma;
-	String PMD;
-	String isLongMethod;
-	String isFeatureEnvy;
+	private JTable table = new JTable();
+	private String file_path;
+	private String file_name;
+	private ExcelMethods method;
+	private DefaultTableModel model;
+	private Workbook book = null;
+	private Sheet sheet = null;
+	private String iPlasma;
+	private String PMD;
+	private String isLongMethod;
+	private String isFeatureEnvy;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -113,6 +114,8 @@ public class WindowGUI {
 		             JOptionPane.QUESTION_MESSAGE, null, null, null);
 		        if (confirm == 0) {
 		        	System.exit(0);
+		        } else {
+		        	return;
 		        }
 		    }
 		};
@@ -163,9 +166,7 @@ public class WindowGUI {
 						}
 
 						}
-					
-						
-						catch (Exception e1) {
+					catch (Exception e1) {
 						e1.printStackTrace();
 						}
 					
@@ -176,7 +177,7 @@ public class WindowGUI {
 					table.setModel(model);
 					System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
 					System.out.println(("File directory: " + chooser.getCurrentDirectory()));
-					}
+				}
 			}
 		});
 		
@@ -211,16 +212,48 @@ public class WindowGUI {
 				        }
 				        
 				    }
-				    System.out.println("File saved");
 				    
-				   FileOutputStream out = new FileOutputStream("D:\\workbook.xls");
-				   book.write(out);
-				   out.close();
-				   JOptionPane.showMessageDialog(frmExcelSearch,
-						    "Changes saved",
-						    "Warning",
-						    JOptionPane.WARNING_MESSAGE);
-				} 
+				    
+				    // inicio
+				    
+				       
+					
+					JFileChooser chooser = new JFileChooser(); 
+					
+					chooser.setCurrentDirectory(new java.io.File("."));
+				    chooser.setDialogTitle("Select directory.");
+				    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				    int returnVal = chooser.showOpenDialog(parent);     
+					if(returnVal == JFileChooser.APPROVE_OPTION) {
+					file_path = chooser.getCurrentDirectory().toString();
+					String filename = JOptionPane.showInputDialog(frmExcelSearch, "Enter file name (needs to have .xlsx):");
+					file_path = chooser.getCurrentDirectory().toString();	
+					System.out.println(chooser.getSelectedFile()+"\\"+filename);
+					if(!filename.contains(".xlsx")) {
+						JOptionPane.showMessageDialog(frmExcelSearch,
+							    "Please write a valid name.",
+							    "Warning",
+							    JOptionPane.WARNING_MESSAGE);
+					return;
+					}  
+					FileOutputStream out = new FileOutputStream(chooser.getSelectedFile()+"\\"+filename);
+					   book.write(out);
+					   out.close();
+					   JOptionPane.showMessageDialog(frmExcelSearch,
+							    "Changes saved at: " + chooser.getSelectedFile(),
+							    "Warning",
+							    JOptionPane.WARNING_MESSAGE);
+					} 
+						
+					}	
+						
+					
+				    
+				    // fim
+				    
+				    
+				    
+				   
 				}
 				if(!changesDetected) {
 					JOptionPane.showMessageDialog(frmExcelSearch,
@@ -228,9 +261,7 @@ public class WindowGUI {
 						    "Warning",
 						    JOptionPane.WARNING_MESSAGE);
 				}
-			    
-			    
-			    
+
 			} catch (IOException ex) {
 			    
 			}
@@ -272,8 +303,21 @@ public class WindowGUI {
 				} else if(n==1) {
 					// add method here
 					String LOC = JOptionPane.showInputDialog(frmExcelSearch, "Enter new LOC threshold:");
+					if(LOC.equals("")) {
+						JOptionPane.showMessageDialog(frmExcelSearch,
+							    "Error please add a value.",
+							    "Warning",
+							    JOptionPane.WARNING_MESSAGE);
+						return;
+						}
 					String CYCLO = JOptionPane.showInputDialog(frmExcelSearch, "Enter new CYCLO threshold:");
-					
+					if(LOC.equals("")) {
+						JOptionPane.showMessageDialog(frmExcelSearch,
+								 "Error please add a value.",
+							    "Warning",
+							    JOptionPane.WARNING_MESSAGE);
+						return;
+					}
 					int LOC_metric = Integer.parseInt(LOC);
 					int CYCLO_metric = Integer.parseInt(CYCLO);
 					System.out.println(Integer.toString(LOC_metric));
@@ -355,7 +399,7 @@ public class WindowGUI {
 								}
 							}loc_values.add(loc_rows);
 							sub_values.add(sub_rows);
-							}
+					}
 
 					DefaultTableModel long_model = new DefaultTableModel(loc_values,headers);
 					DefaultTableModel sub_model = new DefaultTableModel(sub_values, sub_headers);
@@ -392,7 +436,7 @@ public class WindowGUI {
 						    "Applied is_long_method thresholds",
 						    "Warning",
 						    JOptionPane.WARNING_MESSAGE);
-				} else if(n==2) {
+					} else if(n==2) {
 					
 					String ATFD = JOptionPane.showInputDialog(frmExcelSearch, "Enter new ATFD threshold:");
 					String LAA = JOptionPane.showInputDialog(frmExcelSearch, "Enter new LAA threshold:");
@@ -509,9 +553,7 @@ public class WindowGUI {
 					sub_footer.setEditable(false);
 					sub_frame.add(sub_footer, BorderLayout.SOUTH);
 					
-					
-				
-					
+
 					JOptionPane.showMessageDialog(frmExcelSearch,
 
 						    "Applied is_feature_envy thresholds",
