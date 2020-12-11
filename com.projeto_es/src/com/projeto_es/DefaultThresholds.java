@@ -8,7 +8,7 @@ public class DefaultThresholds {
 	}
 	/**
 	 * 
-	 * @return default value of LOC
+	 * @return default value of LOC 
 	 */
 	public String getLoc() {
 		return "80"; 

@@ -22,7 +22,7 @@ public class ExcelMethods {
 	private Sheet sh = null;
 	
 	/**
-	 * 
+	 * Constructor 
 	 * @param Workbook
 	 * @param Sheet
 	 */
@@ -34,11 +34,18 @@ public class ExcelMethods {
 	public ExcelMethods() {
 		
 	}
-	
+	/**
+	 * 
+	 * @param wb
+	 * 
+	 */
 	public void setWB(Workbook wb) {
 		this.wb = wb;
 	}
-	
+	/**
+	 * 
+	 * @param sh
+	 */
 	public void setSH(Sheet sh) {
 		this.sh = sh;
 	}	
@@ -124,11 +131,11 @@ public class ExcelMethods {
 		for( int i = 0; i < rows; i++ )
 			colValues.add(getCellContentStr(i, findColByName(name)));
 		return colValues;		
-	}
+	} 
 	
 	/**
 	 * @param col
-	 * @return a LinkedList<String> of the selected column
+	 * @return a LinkedList<String> of the selected column 
 	 */
 	public LinkedList<String> getFullCol(int col) {
 		LinkedList<String> colValues = new LinkedList<String>();
@@ -138,29 +145,7 @@ public class ExcelMethods {
 		return colValues;		
 	}
 	
-	/**
-	 * @param col_1
-	 * @param col_2
-	 * @return number of differences between 2 columns
-	 */
-	public int numberOfDif2ColsByName(String name_1, String name_2) {
-		int sumDiferences = 0;
-		int index = 0;
-		int col_1 = findColByName(name_1);
-		int col_2 = findColByName(name_2);
-		LinkedList<String> colValues_1 = new LinkedList<String>();
-		LinkedList<String> colValues_2 = new LinkedList<String>();
-		colValues_1.addAll(getFullCol(col_1));
-		colValues_2.addAll(getFullCol(col_2));
-		colValues_1.removeFirst();
-		colValues_2.removeFirst();
-		for (String string : colValues_1) {
-			if(!string.equals(colValues_2.get(index)))
-				sumDiferences++;
-			index++;
-		}	
-		return sumDiferences;
-	}
+	
 	/**
 	 * 
 	 * @param value
@@ -172,13 +157,6 @@ public class ExcelMethods {
 	public void setValue(String value, int row, int col) {
 		Cell cell =	sh.getRow(row).getCell(col);
 		cell.setCellValue(value);
-	}
-	
-	
-	
-	//testes
-	public static void main(String[] args) {
-		
 	}
 
 
