@@ -385,6 +385,7 @@ public class WindowGUI {
 					sub_frame.add(sub_scroll, BorderLayout.CENTER);
 					JTextField sub_footer = new JTextField();
 					sub_footer.setText("Metrics: LOC = "+ LOC + " CYCLO = " + CYCLO + " (is_long_method)");
+					sub_footer.setEditable(false);
 					sub_frame.add(sub_footer, BorderLayout.SOUTH);
 					JOptionPane.showMessageDialog(frmExcelSearch,
 
@@ -505,6 +506,7 @@ public class WindowGUI {
 					sub_frame.add(sub_scroll, BorderLayout.CENTER);
 					JTextField sub_footer = new JTextField();
 					sub_footer.setText("Metrics: ATFD = "+ ATFD + " LAA = " + LAA + " (is_feature_envy)");
+					sub_footer.setEditable(false);
 					sub_frame.add(sub_footer, BorderLayout.SOUTH);
 					
 					
