@@ -16,7 +16,7 @@ public class FeatureEnvyThresholds extends Thresholds{
 	}
 	
 	/**
-	 * 
+	 *  
 	 * @param ATFD method's ATFD
 	 * @param LAA method's LAA
 	 * @param ATFD_metric threshold for ATFD

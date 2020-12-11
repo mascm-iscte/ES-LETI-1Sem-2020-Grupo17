@@ -74,7 +74,7 @@ public class Thresholds {
 	}
 	
 	/**
-	 * Changes LongMethod's rules
+	 * 
 	 * @param LOC method's LOC
 	 * @param CYCLO method's CYCLO
 	 * @param LOC_metric LOC threshold
@@ -86,7 +86,7 @@ public class Thresholds {
 	}
 	
 	/**
-	 * Changes FeatureEnvy's rules
+	 * 
 	 * @param ATFD method's ATFD
 	 * @param LAA method's LAA
 	 * @param ATFD_metric ATFD threshold
