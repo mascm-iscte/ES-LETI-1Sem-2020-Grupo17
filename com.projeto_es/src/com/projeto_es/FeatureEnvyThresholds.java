@@ -7,8 +7,8 @@ public class FeatureEnvyThresholds extends Thresholds{
 	
 	/**
 	 * 
-	 * @param New threshold for ATFD
-	 * @param New Threshold for LAA
+	 * @param ATFD_metric new threshold for ATFD
+	 * @param LAA_metric new Threshold for LAA
 	 */
 	FeatureEnvyThresholds(int ATFD_metric, double LAA_metric){
 		this.ATFD_metric=ATFD_metric;
@@ -17,10 +17,10 @@ public class FeatureEnvyThresholds extends Thresholds{
 	
 	/**
 	 * 
-	 * @param method's ATFD
-	 * @param method's LAA
-	 * @param Threshold for ATFD
-	 * @param Threshold for LAA
+	 * @param ATFD method's ATFD
+	 * @param LAA method's LAA
+	 * @param ATFD_metric threshold for ATFD
+	 * @param LAA_metric threshold for LAA
 	 * @return True if ATFD>ATFD_metric && LAA<LAA_metric
 	 */
 	
