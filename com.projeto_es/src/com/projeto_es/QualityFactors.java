@@ -3,25 +3,52 @@ package com.projeto_es;
 import java.util.InputMismatchException;
 
 public class QualityFactors {
+
 	public QualityFactors() {
 	}
-	/*Defeito Corretamente Identificado*/
+	
+	/**
+	 * Method for detection if defect is correctly detected(DCI)
+	 *
+	 * @param tool
+	 * @param defect
+	 * @return return true if tool and def values are both "TRUE"
+	 **/
 	public boolean DCI(String tool, String def) {
 		return tool.equals("TRUE") && def.equals("TRUE");
 	}
-	/*Defeito Incorretamente Identificado*/
+	/**
+	 * Method for detection if defect is incorrectly detected(DII)
+	 * @param tool
+	 * @param defect 
+	 * @return return true if tool value is "TRUE" and def value is "FALSE"
+	 **/
 	public boolean DII(String tool, String def) {
 		return tool.equals("TRUE") && def.equals("FALSE");
 	}
-	/*Ausência de Defeito Corretamente Identificado*/
+	/**
+	 * Method for detection if Defects Absence Correctly Identified(ADCI)
+	 * @param tool
+	 * @param defect
+	 * @return return true if tool and def are both "FALSE"
+	 **/
 	public boolean ADCI(String tool, String def) {
 		return tool.equals("FALSE") && def.equals("FALSE");
 	}
-	/*Ausência de Defeito Incorretamente Identificado*/
+	/**
+	 * Method for detection if Defects Absence Incorrectly Identified (ADII)
+	 * @param tool
+	 * @param defect
+	 * @return return true if tool value is "FALSE" and def value is "TRUE"
+	 **/
 	public boolean ADII(String tool, String def) {
 		return tool.equals("FALSE") && def.equals("TRUE");
 	}
-	
+	/**
+	 * @param tool
+	 * @param defect
+	 * @return return quality factor by string
+	 **/
 	public String whatFactor(String tool, String def) {
 		try {
 			if(DCI(tool, def)) {
