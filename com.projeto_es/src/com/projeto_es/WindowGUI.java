@@ -111,7 +111,7 @@ public class WindowGUI {
 		WindowListener exitListener = new WindowAdapter() {
 			/**
 			 * Warning message before closing program
-			 * @param Click on "Close" icon
+			 * @param e Click on "Close" icon
 			 */
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -184,8 +184,8 @@ public class WindowGUI {
 
 			/**
 			 * Gets the appropriate pathname for each different OS(Windows, Mac, Linux)
-			 * @param Operating System Name
-			 * @return workbook
+			 * @param os Operating System Name
+			 * @return book Workbook with data from .xlsl file
 			 */
 			private Workbook validateOS(String os) {
 				if(os.indexOf("win")>=0)
@@ -202,7 +202,7 @@ public class WindowGUI {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			/**
 			 * Saves the current JTable onto a file
-			 * @param Clicking on "Save" button triggers current table saving
+			 * @param e Clicking on "Save" button triggers current table saving
 			 * 
 			 */
 			public void actionPerformed(ActionEvent e) {
@@ -290,7 +290,7 @@ public class WindowGUI {
 			
 			/**
 			 * Detects changes in current JTable
-			 * @return returns "TRUE" if there are user changes detected in the current table
+			 * @return changesDetected "TRUE" if there are user changes detected in the current table
 			 */
 			private boolean changed() {
 				for (int i=0;i<model.getRowCount();i++) {
@@ -315,7 +315,7 @@ public class WindowGUI {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			/**
 			 * Asks for user metrics and defines defects in tool(iPlasma/PMD) and definition searching(isLongMethod/isFeatureEnvy) 
-			 * @param Clicked on "Thresholds" button
+			 * @param e Clicked on "Thresholds" button
 			 * 
 			 */
 			public void actionPerformed(ActionEvent e) {
@@ -407,8 +407,9 @@ public class WindowGUI {
 			}
 			/**
 			 * Creates a table for a isFeatureEnvy search
-			 * @param ATFD, number of accessed methods from other classes for given method
-			 * @param LAA, number of accessed method from own class for given method
+			 * @param ATFD number of accessed methods from other classes for given method
+			 * @param LAA number of accessed method from own class for given method
+			 * 
 			 */
 
 			private void makeTableFeature(String ATFD, String LAA) {
@@ -527,8 +528,8 @@ public class WindowGUI {
 			}
 			/**
 			 * Creates a table for a isLongMethod search
-			 * @param LOC, number of lines of code for given method
-			 * @param CYCLO, cyclomatic complexity for given method
+			 * @param LOC number of lines of code for given method
+			 * @param CYCLO cyclomatic complexity for given method
 			 */
 			private void makeTableLongMethod(String LOC, String CYCLO) {
 				int LOC_metric = Integer.parseInt(LOC);
