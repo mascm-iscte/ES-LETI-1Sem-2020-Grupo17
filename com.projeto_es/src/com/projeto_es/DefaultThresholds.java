@@ -6,18 +6,33 @@ public class DefaultThresholds {
 	public DefaultThresholds () {
 		
 	}
-	
-	public int getLoc() {
-		return 80;
+	/**
+	 * 
+	 * @return default value of LOC
+	 */
+	public String getLoc() {
+		return "80"; 
 	}
-	public int getCyclo() {
-		return 10;
+	/**
+	 * 
+	 * @return default value of CYCLO
+	 */
+	public String getCyclo() {
+		return "10";
 	}
-	public double getLAA() {
-		return 0.428571;
+	/**
+	 * 
+	 * @return default value of LAA
+	 */
+	public String getLAA() {
+		return "0.428571";
 	}
-	public double getATFD() {
-		return 4;
+	/**
+	 * 
+	 * @return default value of ATFD
+	 */
+	public String getATFD() {
+		return "4";
 	}
 	
 }
