@@ -3,7 +3,7 @@ package com.projeto_es;
 public class LongMethodThresholds extends Thresholds{
 	
 	int LOC_metric;
-	int CYCLO_metric; 
+	int CYCLO_metric;  
 	
 	LongMethodThresholds(int LOC_metric, int CYCLO_metric){
 		this.LOC_metric = LOC_metric;
