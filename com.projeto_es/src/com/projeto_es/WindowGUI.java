@@ -112,7 +112,7 @@ public class WindowGUI {
 		WindowListener exitListener = new WindowAdapter() {
 			
 			/**
-			 * @param e Click on "Close" icon
+			 * Triggers on closing window
 			 */
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -135,7 +135,7 @@ public class WindowGUI {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			
 			/**
-			 * @param e Clicking on "Abrir" button triggers a JFileChooser that displays .xlsl files
+			 * Triggers on clicking "Abrir" button
 			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -184,8 +184,9 @@ public class WindowGUI {
 			}
 
 			/**
-			 * @param os Operating System Name
-			 * @return book Workbook with data from .xlsl file
+			 * 
+			 * @param os operating system name
+			 * @return correct pathname for given os
 			 */
 			public Workbook validateOS(String os) {
 				if(os.indexOf("win")>=0)
@@ -202,8 +203,7 @@ public class WindowGUI {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			
 			/**
-			 * @param e Clicking on "Save" button triggers current table saving
-			 * 
+			 * Clicking on "Save" button triggers current table saving
 			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -289,7 +289,8 @@ public class WindowGUI {
 			}
 			
 			/**
-			 * @return changesDetected "TRUE" if there are user changes detected in the current table
+			 * 
+			 * @return changesDetected true if there are detected changes in JTable
 			 */
 			public boolean changed() {
 				for (int i=0;i<model.getRowCount();i++) {
@@ -314,7 +315,7 @@ public class WindowGUI {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			
 			/**
-			 * @param e Clicked on "Thresholds" button
+			 * Triggers when pressing "Thresholds" button, acesses metrics
 			 */
 			public void actionPerformed(ActionEvent e) {
 				if(!fileExistes) {
@@ -381,8 +382,9 @@ public class WindowGUI {
 			}
 			
 			/**
-			 * @param ATFD number of accessed methods from other classes for given method
-			 * @param LAA number of accessed method from own class for given method
+			 * 
+			 * @param ATFD 
+			 * @param LAA
 			 */
 			public void makeTableFeature(String ATFD, String LAA) {
 				int ATFD_metric = Integer.parseInt(ATFD);
@@ -500,6 +502,7 @@ public class WindowGUI {
 			}
 			
 			/**
+			 * 
 			 * @param LOC number of lines of code for given method
 			 * @param CYCLO cyclomatic complexity for given method
 			 */
@@ -652,6 +655,10 @@ public class WindowGUI {
 		frmExcelSearch.getContentPane().setLayout(groupLayout);
 	}
 	
+	/**
+	 * 
+	 * @param war warning
+	 */
 	private void showWarning(String war){	
 		JOptionPane.showMessageDialog(frmExcelSearch,
 			war,
