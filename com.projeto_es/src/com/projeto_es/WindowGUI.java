@@ -56,7 +56,6 @@ public class WindowGUI {
 	private Vector<Vector<String>> data = new Vector<Vector<String>>();
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
-	private JButton btnNewButton_3;
 	private JTable table = new JTable();
 	private String file_path;
 	private String file_name;
@@ -626,7 +625,6 @@ public class WindowGUI {
 
 
 
-		btnNewButton_3 = new JButton("Procurar");
 
 		JScrollPane scrollPane = new JScrollPane(table);
 		GroupLayout groupLayout = new GroupLayout(frmExcelSearch.getContentPane());
@@ -640,7 +638,6 @@ public class WindowGUI {
 						.addGap(18)
 						.addComponent(btnNewButton_1)
 						.addPreferredGap(ComponentPlacement.RELATED, 792, Short.MAX_VALUE)
-						.addComponent(btnNewButton_3)
 						.addGap(22))
 				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 1184, Short.MAX_VALUE)
 				);
@@ -652,8 +649,7 @@ public class WindowGUI {
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnNewButton_1)
 								.addComponent(btnNewButton)
-								.addComponent(btnNewButton_2)
-								.addComponent(btnNewButton_3))
+								.addComponent(btnNewButton_2))
 						.addContainerGap())
 				);
 		frmExcelSearch.getContentPane().setLayout(groupLayout);
