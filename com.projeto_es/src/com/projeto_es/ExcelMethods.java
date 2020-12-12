@@ -23,8 +23,8 @@ public class ExcelMethods {
 	
 	/**
 	 * Constructor 
-	 * @param Workbook
-	 * @param Sheet
+	 * @param wb is a workbook apache poi 
+	 * @param sh is a sheet apache poi
 	 */
 	public ExcelMethods(Workbook wb, Sheet sh) {
 		this.wb = wb;
@@ -36,7 +36,7 @@ public class ExcelMethods {
 	}
 	/**
 	 * 
-	 * @param wb
+	 * @param wb is a workbook apache poi
 	 * 
 	 */
 	public void setWB(Workbook wb) {
@@ -44,14 +44,14 @@ public class ExcelMethods {
 	}
 	/**
 	 * 
-	 * @param sh
+	 * @param sh is a sheet apache poi
 	 */
 	public void setSH(Sheet sh) {
 		this.sh = sh;
 	}	
 	
 	/**
-	 * @param filedirectory
+	 * @param fileDir is the file directory
 	 * @return workbook or null if problem getting file occurs
 	 */
 	public Workbook getWorkbook(String fileDir) {
@@ -74,7 +74,7 @@ public class ExcelMethods {
 	}
 	
 	/**
-	 * @param sheetName
+	 * @param sheetName is the name of the sheet you want
 	 * @return return sheet by name
 	 */
 	public Sheet getSheet(String sheetName) {
@@ -123,7 +123,7 @@ public class ExcelMethods {
 	/**
 	 * 
 	 * @param name
-	 * @return LinkedList<String> with values of the selected column
+	 * @return LinkedList with values of the selected column
 	 */
 	public LinkedList<String> getFullColByName(String name) {
 		LinkedList<String> colValues = new LinkedList<String>();
@@ -134,8 +134,8 @@ public class ExcelMethods {
 	} 
 	
 	/**
-	 * @param col
-	 * @return a LinkedList<String> of the selected column 
+	 * @param col is column
+	 * @return a LinkedList of the selected column 
 	 */
 	public LinkedList<String> getFullCol(int col) {
 		LinkedList<String> colValues = new LinkedList<String>();
@@ -148,9 +148,9 @@ public class ExcelMethods {
 	
 	/**
 	 * 
-	 * @param value
-	 * @param row
-	 * @param col
+	 * @param value is the value to set
+	 * @param row is the row
+	 * @param col is column
 	 * 
 	 * Sets value in a cell in current sheet
 	 */
