@@ -322,13 +322,13 @@ public class WindowGUI {
 					return;
 				}
 
-				Object[] options = {"Default", "is_long_method metrics", "is_feature_envy metrics", "Create"};
+				Object[] options = {"Default", "is_long_method metrics", "is_feature_envy metrics"};
 				int n = JOptionPane.showOptionDialog(frmExcelSearch,
 						"Thresholds Options", "Save",
 						JOptionPane.YES_NO_CANCEL_OPTION,
 						JOptionPane.QUESTION_MESSAGE,
 						null,
-						options, options[3]);
+						options, options[2]);
 				if(n==0) {
 					DefaultThresholds dt = new DefaultThresholds();
 					Object[] optionsDefault = {"Default is_Long_Method", "Default is_feature_envy"};
@@ -375,9 +375,6 @@ public class WindowGUI {
 					}
 					makeTableFeature(ATFD, LAA);
 
-				}else if(n==3){
-					// add method here
-					showWarning("Applied Created thresholds");
 				}
 
 
