@@ -11,10 +11,10 @@ public class LongMethodThresholds extends Thresholds{
 	}
 	/**
 	 * Method for classification of the method. Return "TRUE" if both are bigger than the correspondent default metric
-	 * @param Number of lines of code of the method(LOC)
-	 * @param cyclomatic complexity of the method (CYCLO)
-	 * @param Threshold metric for number of lines of code of the method(LOC_metric)
-	 * @param Threshold metric for cyclomatic complexity of the method(CYCLO_metric)
+	 * @param LOC Number of lines of code of the method
+	 * @param CYCLO cyclomatic complexity of the method 
+	 * @param LOC_metric Threshold metric for number of lines of code of the method
+	 * @param CYCLO_metric Threshold metric for cyclomatic complexity of the method
 	 * @return boolean flag, "TRUE" if given method is long
 	 */
 	@Override
