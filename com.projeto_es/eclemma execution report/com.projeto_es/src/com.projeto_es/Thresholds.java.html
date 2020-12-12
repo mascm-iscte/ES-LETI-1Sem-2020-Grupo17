@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Thresholds.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">WindowGUI (Dec 12, 2020 4:26:40 PM)</a> &gt; <a href="../../index.html" class="el_group">com.projeto_es</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">com.projeto_es</a> &gt; <span class="el_source">Thresholds.java</span></div><h1>Thresholds.java</h1><pre class="source lang-java linenums">package com.projeto_es;
+
+public class Thresholds {
+	private int LOC_metric;
+	private int CYCLO_metric;
+	private int ATFD_metric;
+	private int LAA_metric;
+	
+<span class="fc" id="L9">	public Thresholds(){</span>
+<span class="fc" id="L10">	}</span>
+	
+	/**
+	 * 
+	 * @param LOC_metric LOC threshold
+	 */
+	public void setLOC_metric(int LOC_metric) {
+<span class="nc" id="L17">		this.LOC_metric = LOC_metric;</span>
+<span class="nc" id="L18">	}</span>
+	
+	/**
+	 * 
+	 * @param CYCLO_metric CYCLO threshold
+	 */
+	public void setCYCLO_metric(int CYCLO_metric) {
+<span class="nc" id="L25">		this.CYCLO_metric = CYCLO_metric;</span>
+<span class="nc" id="L26">		}</span>
+	
+	/**
+	 * 
+	 * @param ATFD_metric ATFD threshold
+	 */
+	public void setATFD_metric(int ATFD_metric) {
+<span class="nc" id="L33">		this.ATFD_metric = ATFD_metric;</span>
+<span class="nc" id="L34">	}</span>
+	
+	/**
+	 * 
+	 * @param LAA_metric LAA threshold
+	 */
+	public void setLAA_metric(int LAA_metric) {
+<span class="nc" id="L41">		this.LAA_metric = LAA_metric;</span>
+<span class="nc" id="L42">	}</span>
+	
+	/**
+	 * 
+	 * @return LOC_metric LOC threshold
+	 */
+	public int getLOC_metric() {
+<span class="nc" id="L49">		return this.LOC_metric;</span>
+	}
+	
+	/**
+	 * 
+	 * @return CYCLO_metric CYCLO threshold
+	 */
+	public int getCYCLO_metric() {
+<span class="nc" id="L57">		return this.CYCLO_metric;</span>
+	}
+	
+	/**
+	 * 
+	 * @return ATFD_metric ATFD threshold
+	 */
+	public int getATFD_metric() {
+<span class="nc" id="L65">		return this.ATFD_metric;</span>
+	}
+	
+	/**
+	 * 
+	 * @return LAA_metric LAA threshold
+	 */
+	public double getLAA_metric() {
+<span class="nc" id="L73">		return this.LAA_metric;</span>
+	}
+	
+	/**
+	 * 
+	 * @param LOC method's LOC
+	 * @param CYCLO method's CYCLO
+	 * @param LOC_metric LOC threshold
+	 * @param CYCLO_metric CYCLO threshold
+	 * @return true if LOC&gt;LOC_metric &amp;&amp; CYCLO&gt;CYCLO_metric
+	 */
+	public boolean isLongMethod(int LOC, int CYCLO, int LOC_metric, int CYCLO_metric) {
+<span class="nc bnc" id="L85" title="All 4 branches missed.">		return (LOC&gt;LOC_metric &amp;&amp; CYCLO&gt;CYCLO_metric);</span>
+	}
+	
+	/**
+	 * 
+	 * @param ATFD method's ATFD
+	 * @param LAA method's LAA
+	 * @param ATFD_metric ATFD threshold
+	 * @param LAA_metric LAA threshold
+	 * @return true if ATFD&gt;ATFD_metric &amp;&amp; LAA&lt;LAA_metric
+	 */
+	public boolean isFeatureEnvy(int ATFD, double LAA, int ATFD_metric, double LAA_metric) {
+<span class="nc bnc" id="L97" title="All 4 branches missed.">		return ((ATFD&gt;ATFD_metric &amp;&amp; LAA&lt;LAA_metric));</span>
+		
+	}
+	
+	
+	
+	
+}
+
+	
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>WindowGUI (Dec 12, 2020 4:26:40 PM)</div></body></html>
