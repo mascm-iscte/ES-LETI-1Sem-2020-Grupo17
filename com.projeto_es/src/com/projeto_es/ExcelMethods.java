@@ -88,7 +88,7 @@ public class ExcelMethods {
 	 * @return cell contents as a string
 	 */
 	public String getCellContentStr(int row, int col) {
-		if(col == -1) throw new IllegalArgumentException("Error col not found");
+		if(col == -1) throw new IllegalArgumentException("Bad column number.");
 		FormulaEvaluator objFormulaEvaluator = wb.getCreationHelper().createFormulaEvaluator();
 		DataFormatter objDefaultFormat = new DataFormatter();
 		Cell cell =	sh.getRow(row).getCell(col);
