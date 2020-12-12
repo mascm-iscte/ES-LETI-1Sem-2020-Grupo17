@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>WindowGUI.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">com.projeto_es (12/12/2020 20:09:41)</a> &gt; <a href="../../index.html" class="el_group">com.projeto_es</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">com.projeto_es</a> &gt; <span class="el_source">WindowGUI.java</span></div><h1>WindowGUI.java</h1><pre class="source lang-java linenums">package com.projeto_es;
+
+import java.awt.Component;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+
+
+import org.apache.poi.ss.usermodel.Workbook;
+
+import org.apache.poi.ss.usermodel.Cell;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import java.io.FileOutputStream;
+
+import java.io.IOException;
+import java.util.Vector;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+
+import java.awt.Font;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Rectangle;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class WindowGUI {
+
+<span class="nc" id="L52">	protected static final Component parent = null;</span>
+	private JFrame frmExcelSearch;
+<span class="nc" id="L54">	private Vector&lt;String&gt; headers = new Vector&lt;String&gt;();</span>
+<span class="nc" id="L55">	private Vector&lt;String&gt; sub_headers = new Vector&lt;String&gt;();</span>
+<span class="nc" id="L56">	private Vector&lt;Vector&lt;String&gt;&gt; data = new Vector&lt;Vector&lt;String&gt;&gt;();</span>
+	private JButton btnNewButton_1;
+	private JButton btnNewButton_2;
+<span class="nc" id="L59">	private JTable table = new JTable();</span>
+	private String file_path;
+	private String file_name;
+	private ExcelMethods method;
+	private DefaultTableModel model;
+<span class="nc" id="L64">	private Workbook book = null;</span>
+<span class="nc" id="L65">	private Sheet sheet = null;</span>
+	private String iPlasma;
+	private String PMD;
+	private String isLongMethod;
+	private String isFeatureEnvy;
+<span class="nc" id="L70">	private boolean fileExistes = false;</span>
+<span class="nc" id="L71">	private boolean changesDetected = false;</span>
+
+	/**
+	 * Main of graphical user interface
+	 * @param args is command line arguments not needed
+	 */
+	public static void main(String[] args) {
+<span class="nc" id="L78">		EventQueue.invokeLater(new Runnable() {</span>
+			public void run() {
+				try {
+<span class="nc" id="L81">					WindowGUI window = new WindowGUI();</span>
+<span class="nc" id="L82">					window.frmExcelSearch.setVisible(true);</span>
+<span class="nc" id="L83">				} catch (Exception e) {</span>
+<span class="nc" id="L84">					e.printStackTrace();</span>
+				}
+<span class="nc" id="L86">			}</span>
+		});
+<span class="nc" id="L88">	}</span>
+
+	/**
+	 * Constructor
+	 * Create the application.
+	 */
+<span class="nc" id="L94">	public WindowGUI() {</span>
+<span class="nc" id="L95">		initialize();</span>
+<span class="nc" id="L96">	}</span>
+
+
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	public void initialize() {
+<span class="nc" id="L104">		frmExcelSearch = new JFrame();</span>
+<span class="nc" id="L105">		frmExcelSearch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L106">		frmExcelSearch.setSize(1200, 800);</span>
+<span class="nc" id="L107">		frmExcelSearch.getContentPane().setBounds(new Rectangle(1000, 1000, 1200, 800));</span>
+<span class="nc" id="L108">		frmExcelSearch.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));</span>
+<span class="nc" id="L109">		frmExcelSearch.setForeground(Color.BLUE);</span>
+<span class="nc" id="L110">		frmExcelSearch.setFont(new Font(&quot;Calibri Light&quot;, Font.PLAIN, 14));</span>
+<span class="nc" id="L111">		frmExcelSearch.setTitle(&quot;Excel Search&quot;);</span>
+<span class="nc" id="L112">		WindowListener exitListener = new WindowAdapter() {</span>
+			
+			/**
+			 * Triggers on closing window
+			 */
+			@Override
+			public void windowClosing(WindowEvent e) {
+<span class="nc" id="L119">				int confirm = JOptionPane.showOptionDialog(</span>
+<span class="nc" id="L120">						null, &quot;Are You Sure to Close Application?&quot;, </span>
+<span class="nc" id="L121">						&quot;Exit Confirmation&quot;, JOptionPane.YES_NO_OPTION, </span>
+<span class="nc" id="L122">						JOptionPane.QUESTION_MESSAGE, null, null, null);</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">				if (confirm == 0) {</span>
+<span class="nc" id="L124">					System.exit(0);</span>
+<span class="nc" id="L125">				} else {</span>
+<span class="nc" id="L126">					return;</span>
+				}
+<span class="nc" id="L128">			}</span>
+		};
+		
+<span class="nc" id="L131">		frmExcelSearch.addWindowListener(exitListener);</span>
+
+
+<span class="nc" id="L134">		JButton btnNewButton = new JButton(&quot;Abrir&quot;);</span>
+<span class="nc" id="L135">		btnNewButton.addMouseListener(new MouseAdapter() {</span>
+			
+			/**
+			 * Triggers on clicking &quot;Abrir&quot; button
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+<span class="nc" id="L142">				JFileChooser chooser = new JFileChooser();     </span>
+<span class="nc" id="L143">				FileNameExtensionFilter filter = new FileNameExtensionFilter(&quot;Excel Spreadsheet&quot;, &quot;xlsx&quot;); </span>
+<span class="nc" id="L144">				chooser.setFileFilter(filter);</span>
+				//Workbook book;
+				//Sheet sheet;
+<span class="nc" id="L147">				int returnVal = chooser.showOpenDialog(parent);     </span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">				if(returnVal == JFileChooser.APPROVE_OPTION) {  </span>
+					try {
+<span class="nc" id="L150">						file_path = chooser.getCurrentDirectory().toString();</span>
+<span class="nc" id="L151">						file_name = chooser.getSelectedFile().getName();</span>
+<span class="nc" id="L152">						method = new ExcelMethods(book, sheet);</span>
+<span class="nc" id="L153">						book = validateOS(System.getProperty(&quot;os.name&quot;).toLowerCase());</span>
+<span class="nc" id="L154">						method.setWB(book);</span>
+<span class="nc" id="L155">						method.setSH(book.getSheet(&quot;long-method&quot;));</span>
+<span class="nc" id="L156">						headers.clear();</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">						for (int i = 0; i &lt; method.getCols(); i++) {</span>
+<span class="nc" id="L158">							String headercol = method.getCellContentStr(0, i);</span>
+<span class="nc" id="L159">							headers.add(headercol);</span>
+						}
+<span class="nc" id="L161">						data.clear();</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">						for (int i = 1; i &lt; method.getRows(); i++) {</span>
+<span class="nc" id="L163">							Vector&lt;String&gt; d = new Vector&lt;String&gt;();</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">							for (int j = 0; j &lt; method.getCols(); j++) {</span>
+<span class="nc" id="L165">								String auxx = method.getCellContentStr(i, j);</span>
+<span class="nc" id="L166">								d.add(auxx);</span>
+							}	
+<span class="nc" id="L168">							d.add(&quot;\n&quot;);</span>
+<span class="nc" id="L169">							data.add(d);</span>
+						}
+
+<span class="nc" id="L172">					}</span>
+<span class="nc" id="L173">					catch (Exception e1) {</span>
+<span class="nc" id="L174">						e1.printStackTrace();</span>
+					}
+<span class="nc" id="L176">					model = new DefaultTableModel(data,headers);</span>
+<span class="nc" id="L177">					table.setModel(model);</span>
+<span class="nc" id="L178">					table.setAutoCreateRowSorter(true);</span>
+<span class="nc" id="L179">					model = new DefaultTableModel(data, headers);</span>
+<span class="nc" id="L180">					table.setModel(model);</span>
+<span class="nc" id="L181">					fileExistes = true;</span>
+<span class="nc" id="L182">					changesDetected = true;</span>
+				}
+<span class="nc" id="L184">			}</span>
+
+			/**
+			 * 
+			 * @param os operating system name
+			 * @return correct pathname for given os
+			 */
+			public Workbook validateOS(String os) {
+<span class="nc bnc" id="L192" title="All 2 branches missed.">				if(os.indexOf(&quot;win&quot;)&gt;=0)</span>
+<span class="nc" id="L193">					book = method.getWorkbook(file_path+&quot;\\&quot;+file_name);</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">				if(os.indexOf(&quot;mac&quot;)&gt;=0)</span>
+<span class="nc" id="L195">					book = method.getWorkbook(file_path+&quot;//&quot;+file_name);</span>
+<span class="nc bnc" id="L196" title="All 6 branches missed.">				if(os.indexOf(&quot;nix&quot;) &gt;= 0 || os.indexOf(&quot;nux&quot;) &gt;= 0 || os.indexOf(&quot;aix&quot;) &gt; 0)</span>
+<span class="nc" id="L197">					book = method.getWorkbook(file_path+&quot;//&quot;+file_name);</span>
+<span class="nc" id="L198">				return book;</span>
+			}
+		});
+
+<span class="nc" id="L202">		btnNewButton_1 = new JButton(&quot;Save&quot;);</span>
+<span class="nc" id="L203">		btnNewButton_1.addActionListener(new ActionListener() {</span>
+			
+			/**
+			 * Clicking on &quot;Save&quot; button triggers current table saving
+			 */
+			public void actionPerformed(ActionEvent e) {
+				try {
+<span class="nc bnc" id="L210" title="All 2 branches missed.">					if(!changesDetected) {</span>
+<span class="nc" id="L211">						JOptionPane.showMessageDialog(frmExcelSearch,</span>
+<span class="nc" id="L212">								&quot;No changes detected!!&quot;,</span>
+<span class="nc" id="L213">								&quot;Warning&quot;,</span>
+<span class="nc" id="L214">								JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L215">						return;</span>
+					}
+<span class="nc" id="L217">					sheet = book.getSheet(&quot;long-method&quot;);</span>
+<span class="nc" id="L218">					Row row = null;</span>
+<span class="nc" id="L219">					Cell cell = null;</span>
+
+<span class="nc" id="L221">					changesDetected = changed();</span>
+
+<span class="nc bnc" id="L223" title="All 2 branches missed.">					if(changesDetected) {</span>
+<span class="nc" id="L224">						Object[] options = {&quot;Yes&quot;, &quot;No&quot;};</span>
+
+<span class="nc" id="L226">						int n = JOptionPane.showOptionDialog(frmExcelSearch,</span>
+<span class="nc" id="L227">								&quot;Update workbook sheet?&quot;, &quot;Save&quot;,</span>
+<span class="nc" id="L228">								JOptionPane.YES_NO_CANCEL_OPTION,</span>
+<span class="nc" id="L229">								JOptionPane.QUESTION_MESSAGE,</span>
+<span class="nc" id="L230">								null,</span>
+<span class="nc" id="L231">								options, options[1]);</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">						if(n == 0) {</span>
+<span class="nc bnc" id="L233" title="All 2 branches missed.">							for (int i=0;i&lt;model.getRowCount();i++) {</span>
+<span class="nc" id="L234">								row = sheet.getRow(i);</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">								for (int j=0;j&lt;model.getColumnCount();j++) {</span>
+<span class="nc" id="L236">									cell = row.getCell(j);</span>
+<span class="nc" id="L237">									cell.setCellValue((String) model.getValueAt(i, j));</span>
+								}
+
+							}
+
+<span class="nc" id="L242">							JFileChooser chooser = new JFileChooser(); </span>
+
+<span class="nc" id="L244">							chooser.setCurrentDirectory(new java.io.File(&quot;.&quot;));</span>
+<span class="nc" id="L245">							chooser.setDialogTitle(&quot;Select Folder.&quot;);</span>
+<span class="nc" id="L246">							chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);</span>
+<span class="nc" id="L247">							int returnVal = chooser.showOpenDialog(parent);     </span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">							if(returnVal == JFileChooser.APPROVE_OPTION) {</span>
+<span class="nc" id="L249">								file_path = chooser.getCurrentDirectory().toString();</span>
+<span class="nc" id="L250">								String filename = JOptionPane.showInputDialog(frmExcelSearch, &quot;Enter file name (needs to have .xlsx):&quot;);</span>
+<span class="nc" id="L251">								file_path = chooser.getCurrentDirectory().toString();	</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">								if(!filename.contains(&quot;.xlsx&quot;)) {</span>
+<span class="nc" id="L253">									JOptionPane.showMessageDialog(frmExcelSearch,</span>
+<span class="nc" id="L254">											&quot;Please write a valid name.&quot;,</span>
+<span class="nc" id="L255">											&quot;Warning&quot;,</span>
+<span class="nc" id="L256">											JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L257">									return;</span>
+								}
+<span class="nc" id="L259">								FileOutputStream out = null;</span>
+<span class="nc" id="L260">								String os = System.getProperty(&quot;os.name&quot;).toLowerCase();</span>
+<span class="nc bnc" id="L261" title="All 2 branches missed.">								if(os.indexOf(&quot;win&quot;)&gt;=0)</span>
+<span class="nc" id="L262">									out = new FileOutputStream(chooser.getSelectedFile()+&quot;\\&quot;+filename);</span>
+<span class="nc bnc" id="L263" title="All 2 branches missed.">								if(os.indexOf(&quot;mac&quot;)&gt;=0)</span>
+<span class="nc" id="L264">									out = new FileOutputStream(chooser.getSelectedFile()+&quot;//&quot;+filename);</span>
+<span class="nc bnc" id="L265" title="All 6 branches missed.">								if(os.indexOf(&quot;nix&quot;) &gt;= 0 || os.indexOf(&quot;nux&quot;) &gt;= 0 || os.indexOf(&quot;aix&quot;) &gt; 0)</span>
+<span class="nc" id="L266">									out = new FileOutputStream(chooser.getSelectedFile()+&quot;//&quot;+filename);</span>
+								
+<span class="nc" id="L268">								book.write(out);</span>
+<span class="nc" id="L269">								out.close();</span>
+<span class="nc" id="L270">								JOptionPane.showMessageDialog(frmExcelSearch,</span>
+<span class="nc" id="L271">										&quot;Changes saved at: &quot; + chooser.getSelectedFile(),</span>
+<span class="nc" id="L272">										&quot;Warning&quot;,</span>
+<span class="nc" id="L273">										JOptionPane.WARNING_MESSAGE);</span>
+							} 
+ 
+						}	
+
+					}
+<span class="nc bnc" id="L279" title="All 2 branches missed.">					if(!changesDetected) {</span>
+<span class="nc" id="L280">						JOptionPane.showMessageDialog(frmExcelSearch,</span>
+<span class="nc" id="L281">								&quot;No changes found&quot;,</span>
+<span class="nc" id="L282">								&quot;Warning&quot;,</span>
+<span class="nc" id="L283">								JOptionPane.WARNING_MESSAGE);</span>
+					}
+
+<span class="nc" id="L286">				} catch (IOException ex) {</span>
+
+				}
+<span class="nc" id="L289">			}</span>
+			
+			/**
+			 * 
+			 * @return changesDetected true if there are detected changes in JTable
+			 */
+			public boolean changed() {
+<span class="nc bnc" id="L296" title="All 2 branches missed.">				for (int i=0;i&lt;model.getRowCount();i++) {</span>
+<span class="nc bnc" id="L297" title="All 2 branches missed.">					for (int j=0;j&lt;model.getColumnCount();j++) {</span>
+<span class="nc bnc" id="L298" title="All 2 branches missed.">						if(!table.getValueAt(i, j).equals(method.getCellContentStr(i, j))) {</span>
+<span class="nc" id="L299">							changesDetected = true;</span>
+<span class="nc" id="L300">							return changesDetected;</span>
+						}
+					}
+
+				}
+				
+<span class="nc" id="L306">				return changesDetected;</span>
+			}});
+
+
+
+
+
+
+<span class="nc" id="L314">		btnNewButton_2 = new JButton(&quot;Thresholds&quot;);</span>
+<span class="nc" id="L315">		btnNewButton_2.addActionListener(new ActionListener() {</span>
+			
+			/**
+			 * Triggers when pressing &quot;Thresholds&quot; button, acesses metrics
+			 */
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L321" title="All 2 branches missed.">				if(!fileExistes) {</span>
+<span class="nc" id="L322">					showWarning(&quot;No file opened!&quot;);</span>
+<span class="nc" id="L323">					return;</span>
+				}
+
+<span class="nc" id="L326">				Object[] options = {&quot;Default&quot;, &quot;is_long_method metrics&quot;, &quot;is_feature_envy metrics&quot;};</span>
+<span class="nc" id="L327">				int n = JOptionPane.showOptionDialog(frmExcelSearch,</span>
+<span class="nc" id="L328">						&quot;Thresholds Options&quot;, &quot;Save&quot;,</span>
+<span class="nc" id="L329">						JOptionPane.YES_NO_CANCEL_OPTION,</span>
+<span class="nc" id="L330">						JOptionPane.QUESTION_MESSAGE,</span>
+<span class="nc" id="L331">						null,</span>
+<span class="nc" id="L332">						options, options[2]);</span>
+<span class="nc bnc" id="L333" title="All 2 branches missed.">				if(n==0) {</span>
+<span class="nc" id="L334">					DefaultThresholds dt = new DefaultThresholds();</span>
+<span class="nc" id="L335">					Object[] optionsDefault = {&quot;Default is_Long_Method&quot;, &quot;Default is_feature_envy&quot;};</span>
+<span class="nc" id="L336">					int nDefault = JOptionPane.showOptionDialog(frmExcelSearch,</span>
+<span class="nc" id="L337">							&quot;Thresholds Options&quot;, &quot;Save&quot;,</span>
+<span class="nc" id="L338">							JOptionPane.YES_NO_CANCEL_OPTION,</span>
+<span class="nc" id="L339">							JOptionPane.QUESTION_MESSAGE,</span>
+<span class="nc" id="L340">							null,</span>
+<span class="nc" id="L341">							optionsDefault, optionsDefault[1]);</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">					if(nDefault == 0) {</span>
+<span class="nc" id="L343">						String LOC = dt.getLoc(), CYCLO = dt.getCyclo();</span>
+<span class="nc" id="L344">						makeTableLongMethod(LOC,CYCLO);</span>
+					}
+
+<span class="nc bnc" id="L347" title="All 2 branches missed.">					if(nDefault == 1) {</span>
+<span class="nc" id="L348">						String ATFD = dt.getATFD(), LAA = dt.getLAA();</span>
+<span class="nc" id="L349">						makeTableFeature(ATFD,LAA);</span>
+					}
+
+<span class="nc" id="L352">					showWarning(&quot;Applied default thresholds&quot;);</span>
+<span class="nc bnc" id="L353" title="All 2 branches missed.">				} else if(n==1) {</span>
+<span class="nc" id="L354">					String LOC = JOptionPane.showInputDialog(frmExcelSearch, &quot;Enter new LOC threshold:&quot;);</span>
+<span class="nc bnc" id="L355" title="All 2 branches missed.">					if(LOC == null) {</span>
+<span class="nc" id="L356">						showWarning(&quot;Error please add a value.&quot;);</span>
+<span class="nc" id="L357">						return;</span>
+					}
+<span class="nc" id="L359">					String CYCLO = JOptionPane.showInputDialog(frmExcelSearch, &quot;Enter new CYCLO threshold:&quot;);</span>
+<span class="nc bnc" id="L360" title="All 2 branches missed.">					if(CYCLO == null) {</span>
+<span class="nc" id="L361">						showWarning(&quot;Error please add a value.&quot;);</span>
+<span class="nc" id="L362">						return;</span>
+					}
+<span class="nc" id="L364">					makeTableLongMethod(LOC, CYCLO);</span>
+<span class="nc bnc" id="L365" title="All 2 branches missed.">				} else if(n==2) {</span>
+
+<span class="nc" id="L367">					String ATFD = JOptionPane.showInputDialog(frmExcelSearch, &quot;Enter new ATFD threshold:&quot;);</span>
+<span class="nc bnc" id="L368" title="All 2 branches missed.">					if(ATFD == null) {</span>
+<span class="nc" id="L369">						showWarning(&quot;Error please add a value.&quot;);</span>
+<span class="nc" id="L370">						return;</span>
+					}
+<span class="nc" id="L372">					String LAA = JOptionPane.showInputDialog(frmExcelSearch, &quot;Enter new LAA threshold:&quot;);</span>
+<span class="nc bnc" id="L373" title="All 2 branches missed.">					if(LAA == null) {</span>
+<span class="nc" id="L374">						showWarning(&quot;Error please add a value.&quot;);</span>
+<span class="nc" id="L375">						return;</span>
+					}
+<span class="nc" id="L377">					makeTableFeature(ATFD, LAA);</span>
+
+				}
+
+
+<span class="nc" id="L382">			}</span>
+			
+			/**
+			 * 
+			 * @param ATFD 
+			 * @param LAA
+			 */
+			public void makeTableFeature(String ATFD, String LAA) {
+<span class="nc" id="L390">				int ATFD_metric = Integer.parseInt(ATFD);</span>
+<span class="nc" id="L391">				double LAA_metric = Double.parseDouble(LAA);</span>
+<span class="nc" id="L392">				sub_headers.add(&quot;MethodID&quot;);</span>
+<span class="nc" id="L393">				sub_headers.add(&quot;Defeito iPlasma&quot;);</span>
+<span class="nc" id="L394">				sub_headers.add(&quot;Defeito PMD&quot;);</span>
+<span class="nc" id="L395">				FeatureEnvyThresholds featureEnvy = new FeatureEnvyThresholds (ATFD_metric, LAA_metric);</span>
+<span class="nc" id="L396">				JTable long_table = new JTable();</span>
+<span class="nc" id="L397">				Vector&lt;Vector&lt;String&gt;&gt; fe_values = new Vector&lt;Vector&lt;String&gt;&gt;();</span>
+<span class="nc" id="L398">				Vector&lt;Vector&lt;String&gt;&gt; sub_values = new Vector&lt;Vector&lt;String&gt;&gt;();</span>
+<span class="nc" id="L399">				JTable sub_table = new JTable();</span>
+<span class="nc" id="L400">				int atfd = 0;</span>
+<span class="nc" id="L401">				double laa = 0;</span>
+<span class="nc bnc" id="L402" title="All 2 branches missed.">				for(int i = 1; i &lt; method.getRows(); i++){</span>
+<span class="nc" id="L403">					Vector&lt;String&gt; fe_rows = new Vector&lt;String&gt;();</span>
+<span class="nc" id="L404">					Vector&lt;String&gt; sub_rows = new Vector&lt;String&gt;();</span>
+<span class="nc bnc" id="L405" title="All 2 branches missed.">					for(int j = 0; j &lt;= method.getCols() + 1; j++){</span>
+<span class="nc bnc" id="L406" title="All 2 branches missed.">						if(j == 6){</span>
+<span class="nc" id="L407">							String atfd_str = method.getCellContentStr(i, j);</span>
+<span class="nc" id="L408">							atfd = Integer.parseInt(atfd_str);</span>
+<span class="nc" id="L409">							fe_rows.add(method.getCellContentStr(i, j));</span>
+<span class="nc" id="L410">							j++;</span>
+<span class="nc" id="L411">							String laa_str = method.getCellContentStr(i, j);</span>
+<span class="nc" id="L412">							laa = Double.parseDouble(laa_str);</span>
+<span class="nc" id="L413">							fe_rows.add(method.getCellContentStr(i, j));</span>
+<span class="nc" id="L414">						}</span>
+<span class="nc bnc" id="L415" title="All 2 branches missed.">						else if (j==9) {</span>
+<span class="nc" id="L416">							String iPlasma_str = method.getCellContentStr(i, j);</span>
+<span class="nc bnc" id="L417" title="All 2 branches missed.">							if(iPlasma_str.equals(&quot;TRUE&quot;)) {</span>
+<span class="nc" id="L418">								iPlasma = &quot;TRUE&quot;;</span>
+<span class="nc" id="L419">							}</span>
+							else {
+<span class="nc" id="L421">								iPlasma = &quot;FALSE&quot;;</span>
+							}
+<span class="nc" id="L423">							fe_rows.add(method.getCellContentStr(i, j));</span>
+<span class="nc" id="L424">							j++;</span>
+<span class="nc" id="L425">							String PMD_str = method.getCellContentStr(i, j);</span>
+<span class="nc bnc" id="L426" title="All 2 branches missed.">							if(PMD_str == &quot;TRUE&quot;) {</span>
+<span class="nc" id="L427">								PMD = &quot;TRUE&quot;;</span>
+<span class="nc" id="L428">							}</span>
+							else {
+<span class="nc" id="L430">								PMD = &quot;FALSE&quot;;</span>
+							}
+<span class="nc" id="L432">							fe_rows.add(method.getCellContentStr(i, j));</span>
+
+<span class="nc" id="L434">						}</span>
+
+<span class="nc bnc" id="L436" title="All 2 branches missed.">						else if(j==11) {</span>
+<span class="nc bnc" id="L437" title="All 2 branches missed.">							if(featureEnvy.isFeatureEnvy(atfd, laa, ATFD_metric, LAA_metric)) {</span>
+<span class="nc" id="L438">								isFeatureEnvy = &quot;TRUE&quot;;</span>
+<span class="nc" id="L439">								fe_rows.add(&quot;TRUE&quot;);</span>
+<span class="nc" id="L440">							}</span>
+
+							else {
+<span class="nc" id="L443">								isFeatureEnvy = &quot;FALSE&quot;;</span>
+<span class="nc" id="L444">								fe_rows.add(&quot;FALSE&quot;);</span>
+							}
+
+<span class="nc" id="L447">						}</span>
+<span class="nc bnc" id="L448" title="All 2 branches missed.">						else if (j == method.getCols()) {</span>
+							String qualityMethod;
+<span class="nc" id="L450">							QualityFactors factor = new QualityFactors();</span>
+<span class="nc" id="L451">							qualityMethod = factor.whatFactor(iPlasma, isFeatureEnvy);</span>
+<span class="nc" id="L452">							sub_rows.add(qualityMethod);</span>
+<span class="nc" id="L453">						}</span>
+<span class="nc bnc" id="L454" title="All 2 branches missed.">						else if (j &gt;= method.getCols()) {</span>
+							String qualityMethod;
+<span class="nc" id="L456">							QualityFactors factor = new QualityFactors();</span>
+<span class="nc" id="L457">							qualityMethod = factor.whatFactor(PMD, isFeatureEnvy);</span>
+<span class="nc" id="L458">							sub_rows.add(qualityMethod);</span>
+<span class="nc" id="L459">						}</span>
+						else{
+<span class="nc" id="L461">							fe_rows.add(method.getCellContentStr(i, j));</span>
+<span class="nc bnc" id="L462" title="All 2 branches missed.">							if(j == 0) {</span>
+<span class="nc" id="L463">								sub_rows.add(method.getCellContentStr(i, j));</span>
+							}
+						}
+<span class="nc" id="L466">					}fe_values.add(fe_rows);</span>
+<span class="nc" id="L467">					sub_values.add(sub_rows);</span>
+				}
+
+<span class="nc" id="L470">				DefaultTableModel long_model = new DefaultTableModel(fe_values,headers);</span>
+<span class="nc" id="L471">				final DefaultTableModel sub_model = new DefaultTableModel(sub_values, sub_headers);</span>
+<span class="nc" id="L472">				long_table.setModel(long_model);</span>
+<span class="nc" id="L473">				sub_table.setModel(sub_model);</span>
+<span class="nc" id="L474">				sub_headers.clear();</span>
+<span class="nc" id="L475">				long_table.setAutoCreateRowSorter(true);</span>
+<span class="nc" id="L476">				sub_table.setAutoCreateRowSorter(true);</span>
+<span class="nc" id="L477">				JFrame long_frame = new JFrame();</span>
+<span class="nc" id="L478">				JFrame sub_frame = new JFrame();</span>
+<span class="nc" id="L479">				JScrollPane long_scroll = new JScrollPane(long_table);</span>
+<span class="nc" id="L480">				JScrollPane sub_scroll = new JScrollPane(sub_table);</span>
+<span class="nc" id="L481">				long_frame.setSize(800, 600);</span>
+<span class="nc" id="L482">				sub_frame.setSize(400, 300);</span>
+				//long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+<span class="nc" id="L484">				long_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));</span>
+<span class="nc" id="L485">				sub_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));</span>
+<span class="nc" id="L486">				long_frame.setTitle(&quot;is_feature_envy Search&quot;);</span>
+<span class="nc" id="L487">				sub_frame.setTitle(&quot;is_feature_envy Results&quot;);</span>
+<span class="nc" id="L488">				BorderLayout border = new BorderLayout();</span>
+<span class="nc" id="L489">				sub_frame.setLayout(border);</span>
+<span class="nc" id="L490">				long_frame.setVisible(true);</span>
+<span class="nc" id="L491">				long_frame.setResizable(true);</span>
+<span class="nc" id="L492">				long_frame.add(long_scroll);</span>
+<span class="nc" id="L493">				sub_frame.setVisible(true);</span>
+<span class="nc" id="L494">				sub_frame.setResizable(true);</span>
+<span class="nc" id="L495">				sub_frame.add(sub_scroll, BorderLayout.CENTER);</span>
+<span class="nc" id="L496">				JTextField sub_footer = new JTextField();</span>
+<span class="nc" id="L497">				sub_footer.setText(&quot;Metrics: ATFD = &quot;+ ATFD + &quot; LAA = &quot; + LAA + &quot; (is_feature_envy)&quot;);</span>
+<span class="nc" id="L498">				sub_footer.setEditable(false);</span>
+
+<span class="nc" id="L500">				sub_frame.add(sub_footer, BorderLayout.SOUTH);</span>
+
+<span class="nc" id="L502">			}</span>
+			
+			/**
+			 * 
+			 * @param LOC number of lines of code for given method
+			 * @param CYCLO cyclomatic complexity for given method
+			 */
+			public void makeTableLongMethod(String LOC, String CYCLO) {
+<span class="nc" id="L510">				int LOC_metric = Integer.parseInt(LOC);</span>
+<span class="nc" id="L511">				int CYCLO_metric = Integer.parseInt(CYCLO);</span>
+<span class="nc" id="L512">				LongMethodThresholds longMethod = new LongMethodThresholds (LOC_metric, CYCLO_metric);</span>
+<span class="nc" id="L513">				JTable long_table = new JTable();</span>
+<span class="nc" id="L514">				JTable sub_table = new JTable();</span>
+<span class="nc" id="L515">				Vector&lt;Vector&lt;String&gt;&gt; loc_values = new Vector&lt;Vector&lt;String&gt;&gt;();</span>
+<span class="nc" id="L516">				Vector&lt;Vector&lt;String&gt;&gt; sub_values = new Vector&lt;Vector&lt;String&gt;&gt;();</span>
+<span class="nc" id="L517">				int loc = 0;</span>
+<span class="nc" id="L518">				int cyclo = 0;</span>
+<span class="nc" id="L519">				sub_headers.add(&quot;MethodID&quot;);</span>
+<span class="nc" id="L520">				sub_headers.add(&quot;Defeito iPlasma&quot;);</span>
+<span class="nc" id="L521">				sub_headers.add(&quot;Defeito PMD&quot;);</span>
+<span class="nc bnc" id="L522" title="All 2 branches missed.">				for(int i = 1; i &lt; method.getRows(); i++){</span>
+<span class="nc" id="L523">					Vector&lt;String&gt; loc_rows = new Vector&lt;String&gt;();</span>
+<span class="nc" id="L524">					Vector&lt;String&gt; sub_rows = new Vector&lt;String&gt;();</span>
+<span class="nc bnc" id="L525" title="All 2 branches missed.">					for(int j = 0; j &lt;= method.getCols() + 1; j++){</span>
+<span class="nc bnc" id="L526" title="All 2 branches missed.">						if(j == 4){</span>
+<span class="nc" id="L527">							String loc_str = method.getCellContentStr(i, j);</span>
+<span class="nc" id="L528">							loc = Integer.parseInt(loc_str);</span>
+<span class="nc" id="L529">							loc_rows.add(method.getCellContentStr(i, j));</span>
+<span class="nc" id="L530">							j++;</span>
+<span class="nc" id="L531">							String cyclo_str = method.getCellContentStr(i, j);</span>
+<span class="nc" id="L532">							cyclo = Integer.parseInt(cyclo_str);</span>
+<span class="nc" id="L533">							loc_rows.add(method.getCellContentStr(i, j));</span>
+<span class="nc" id="L534">						}</span>
+
+<span class="nc bnc" id="L536" title="All 2 branches missed.">						else if(j==8) {</span>
+<span class="nc bnc" id="L537" title="All 2 branches missed.">							if(longMethod.isLongMethod(loc, cyclo,LOC_metric, CYCLO_metric)) {</span>
+<span class="nc" id="L538">								isLongMethod = &quot;TRUE&quot;;</span>
+<span class="nc" id="L539">								loc_rows.add(&quot;TRUE&quot;);</span>
+<span class="nc" id="L540">							}</span>
+
+							else {
+<span class="nc" id="L543">								isLongMethod = &quot;FALSE&quot;;</span>
+<span class="nc" id="L544">								loc_rows.add(&quot;FALSE&quot;);</span>
+							}
+<span class="nc" id="L546">						}</span>
+<span class="nc bnc" id="L547" title="All 2 branches missed.">						else if (j==9) {</span>
+<span class="nc" id="L548">							String iPlasma_str = method.getCellContentStr(i, j);</span>
+<span class="nc bnc" id="L549" title="All 2 branches missed.">							if(iPlasma_str.equals(&quot;TRUE&quot;)) {</span>
+<span class="nc" id="L550">								iPlasma = &quot;TRUE&quot;;</span>
+<span class="nc" id="L551">							}</span>
+							else {
+<span class="nc" id="L553">								iPlasma = &quot;FALSE&quot;;</span>
+							}
+<span class="nc" id="L555">							loc_rows.add(method.getCellContentStr(i, j));</span>
+<span class="nc" id="L556">							j++;</span>
+<span class="nc" id="L557">							String PMD_str = method.getCellContentStr(i, j);</span>
+<span class="nc bnc" id="L558" title="All 2 branches missed.">							if(PMD_str == &quot;TRUE&quot;) {</span>
+<span class="nc" id="L559">								PMD = &quot;TRUE&quot;;</span>
+<span class="nc" id="L560">							}</span>
+							else {
+<span class="nc" id="L562">								PMD = &quot;FALSE&quot;;</span>
+							}
+<span class="nc" id="L564">							loc_rows.add(method.getCellContentStr(i, j));</span>
+
+<span class="nc" id="L566">						}</span>
+
+<span class="nc bnc" id="L568" title="All 2 branches missed.">						else if (j == method.getCols()) {</span>
+							String qualityMethod;
+<span class="nc" id="L570">							QualityFactors factor = new QualityFactors();</span>
+<span class="nc" id="L571">							qualityMethod = factor.whatFactor(iPlasma, isLongMethod);</span>
+<span class="nc" id="L572">							sub_rows.add(qualityMethod);</span>
+<span class="nc" id="L573">						}</span>
+<span class="nc bnc" id="L574" title="All 2 branches missed.">						else if (j &gt;= method.getCols()) {</span>
+							String qualityMethod;
+<span class="nc" id="L576">							QualityFactors factor = new QualityFactors();</span>
+<span class="nc" id="L577">							qualityMethod = factor.whatFactor(PMD, isLongMethod);</span>
+<span class="nc" id="L578">							sub_rows.add(qualityMethod);</span>
+<span class="nc" id="L579">						}</span>
+
+						else{
+<span class="nc" id="L582">							loc_rows.add(method.getCellContentStr(i, j));</span>
+<span class="nc bnc" id="L583" title="All 2 branches missed.">							if (j == 0) {</span>
+<span class="nc" id="L584">								sub_rows.add(method.getCellContentStr(i, j));</span>
+							}
+						}
+<span class="nc" id="L587">					}loc_values.add(loc_rows);</span>
+<span class="nc" id="L588">					sub_values.add(sub_rows);</span>
+				}
+
+<span class="nc" id="L591">				DefaultTableModel long_model = new DefaultTableModel(loc_values,headers);</span>
+<span class="nc" id="L592">				DefaultTableModel sub_model = new DefaultTableModel(sub_values, sub_headers);</span>
+<span class="nc" id="L593">				long_table.setModel(long_model);</span>
+<span class="nc" id="L594">				sub_table.setModel(sub_model);</span>
+<span class="nc" id="L595">				sub_headers.clear();</span>
+<span class="nc" id="L596">				long_table.setAutoCreateRowSorter(true);</span>
+<span class="nc" id="L597">				sub_table.setAutoCreateRowSorter(true);</span>
+<span class="nc" id="L598">				JFrame long_frame = new JFrame();</span>
+<span class="nc" id="L599">				JFrame sub_frame = new JFrame();</span>
+<span class="nc" id="L600">				JScrollPane long_scroll = new JScrollPane(long_table);</span>
+<span class="nc" id="L601">				JScrollPane sub_scroll = new JScrollPane(sub_table);</span>
+<span class="nc" id="L602">				long_frame.setSize(800, 600);</span>
+<span class="nc" id="L603">				sub_frame.setSize(400, 300);</span>
+				//long_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+<span class="nc" id="L605">				long_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));</span>
+<span class="nc" id="L606">				sub_frame.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));</span>
+<span class="nc" id="L607">				long_frame.setTitle(&quot;is_long_method Search&quot;);</span>
+<span class="nc" id="L608">				sub_frame.setTitle(&quot;is_long_method Results&quot;);</span>
+<span class="nc" id="L609">				BorderLayout border = new BorderLayout();</span>
+<span class="nc" id="L610">				sub_frame.setLayout(border);</span>
+<span class="nc" id="L611">				long_frame.setVisible(true);</span>
+<span class="nc" id="L612">				long_frame.setResizable(true);</span>
+<span class="nc" id="L613">				long_frame.add(long_scroll);</span>
+<span class="nc" id="L614">				sub_frame.setVisible(true);</span>
+<span class="nc" id="L615">				sub_frame.setResizable(true);</span>
+<span class="nc" id="L616">				sub_frame.add(sub_scroll, BorderLayout.CENTER);</span>
+<span class="nc" id="L617">				JTextField sub_footer = new JTextField();</span>
+<span class="nc" id="L618">				sub_footer.setText(&quot;Metrics: LOC = &quot;+ LOC + &quot; CYCLO = &quot; + CYCLO + &quot; (is_long_method)&quot;);</span>
+<span class="nc" id="L619">				sub_footer.setEditable(false);</span>
+<span class="nc" id="L620">				sub_frame.add(sub_footer, BorderLayout.SOUTH);</span>
+
+
+<span class="nc" id="L623">			}</span>
+		});
+
+
+
+
+<span class="nc" id="L629">		JScrollPane scrollPane = new JScrollPane(table);</span>
+<span class="nc" id="L630">		GroupLayout groupLayout = new GroupLayout(frmExcelSearch.getContentPane());</span>
+<span class="nc" id="L631">		groupLayout.setHorizontalGroup(</span>
+<span class="nc" id="L632">				groupLayout.createParallelGroup(Alignment.LEADING)</span>
+<span class="nc" id="L633">				.addGroup(groupLayout.createSequentialGroup()</span>
+<span class="nc" id="L634">						.addGap(20)</span>
+<span class="nc" id="L635">						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)</span>
+<span class="nc" id="L636">						.addGap(18)</span>
+<span class="nc" id="L637">						.addComponent(btnNewButton_2)</span>
+<span class="nc" id="L638">						.addGap(18)</span>
+<span class="nc" id="L639">						.addComponent(btnNewButton_1)</span>
+<span class="nc" id="L640">						.addPreferredGap(ComponentPlacement.RELATED, 792, Short.MAX_VALUE)</span>
+<span class="nc" id="L641">						.addGap(22))</span>
+<span class="nc" id="L642">				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 1184, Short.MAX_VALUE)</span>
+				);
+<span class="nc" id="L644">		groupLayout.setVerticalGroup(</span>
+<span class="nc" id="L645">				groupLayout.createParallelGroup(Alignment.TRAILING)</span>
+<span class="nc" id="L646">				.addGroup(groupLayout.createSequentialGroup()</span>
+<span class="nc" id="L647">						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)</span>
+<span class="nc" id="L648">						.addGap(18)</span>
+<span class="nc" id="L649">						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)</span>
+<span class="nc" id="L650">								.addComponent(btnNewButton_1)</span>
+<span class="nc" id="L651">								.addComponent(btnNewButton)</span>
+<span class="nc" id="L652">								.addComponent(btnNewButton_2))</span>
+<span class="nc" id="L653">						.addContainerGap())</span>
+				);
+<span class="nc" id="L655">		frmExcelSearch.getContentPane().setLayout(groupLayout);</span>
+<span class="nc" id="L656">	}</span>
+	
+	/**
+	 * 
+	 * @param war warning
+	 */
+	private void showWarning(String war){	
+<span class="nc" id="L663">		JOptionPane.showMessageDialog(frmExcelSearch,</span>
+<span class="nc" id="L664">			war,</span>
+<span class="nc" id="L665">			&quot;Warning&quot;,</span>
+<span class="nc" id="L666">			JOptionPane.WARNING_MESSAGE);</span>
+<span class="nc" id="L667">	}</span>
+	
+}
+
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>com.projeto_es (12/12/2020 20:09:41)</div></body></html>

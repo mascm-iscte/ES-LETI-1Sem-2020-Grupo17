@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>LongMethodThresholds.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">com.projeto_es (12/12/2020 20:09:41)</a> &gt; <a href="../../index.html" class="el_group">com.projeto_es</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">com.projeto_es</a> &gt; <span class="el_source">LongMethodThresholds.java</span></div><h1>LongMethodThresholds.java</h1><pre class="source lang-java linenums">package com.projeto_es;
+
+public class LongMethodThresholds{
+	
+	int LOC_metric;
+	int CYCLO_metric;  
+	
+<span class="nc" id="L8">	public LongMethodThresholds(int LOC_metric, int CYCLO_metric) {</span>
+<span class="nc" id="L9">		this.LOC_metric = LOC_metric;</span>
+<span class="nc" id="L10">		this.CYCLO_metric = CYCLO_metric;</span>
+<span class="nc" id="L11">	}</span>
+	
+	/**
+	 * Contructor of LongMethodThresholds
+	 * Method for classification of the method. Return &quot;TRUE&quot; if both are bigger than the correspondent default metric
+	 * @param LOC Number of lines of code of the method
+	 * @param CYCLO cyclomatic complexity of the method 
+	 * @param LOC_metric Threshold metric for number of lines of code of the method
+	 * @param CYCLO_metric Threshold metric for cyclomatic complexity of the method
+	 * @return boolean flag, &quot;TRUE&quot; if given method is long
+	 */
+	
+	public boolean isLongMethod (int LOC, int CYCLO, int LOC_metric, int CYCLO_metric) {
+<span class="nc bnc" id="L24" title="All 4 branches missed.">		return (LOC&gt;LOC_metric &amp;&amp; CYCLO&gt;CYCLO_metric);</span>
+	}	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>com.projeto_es (12/12/2020 20:09:41)</div></body></html>

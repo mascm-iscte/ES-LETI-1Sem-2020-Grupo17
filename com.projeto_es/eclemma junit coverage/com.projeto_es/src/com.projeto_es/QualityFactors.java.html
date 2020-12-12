@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>QualityFactors.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">com.projeto_es (12/12/2020 20:09:41)</a> &gt; <a href="../../index.html" class="el_group">com.projeto_es</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">com.projeto_es</a> &gt; <span class="el_source">QualityFactors.java</span></div><h1>QualityFactors.java</h1><pre class="source lang-java linenums">package com.projeto_es;
+
+import java.util.InputMismatchException;
+
+public class QualityFactors  { 
+
+<span class="nc" id="L7">	public QualityFactors() {</span>
+<span class="nc" id="L8">	}</span>
+	
+	/**
+	 * Method for detection if defect is correctly detected(DCI)
+	 *
+	 * @param tool PMD or iPlasma tool
+	 * @param def Defect for comparation
+	 * @return return true if tool and def values are both &quot;TRUE&quot;
+	 **/
+	public boolean DCI(String tool, String def) {
+<span class="nc bnc" id="L18" title="All 4 branches missed.">		return tool.equals(&quot;TRUE&quot;) &amp;&amp; def.equals(&quot;TRUE&quot;);</span>
+	}
+	/**
+	 * Method for detection if defect is incorrectly detected(DII)
+	 * @param tool PMD or iPlasma tool
+	 * @param def Defect for comparation
+	 * @return return true if tool value is &quot;TRUE&quot; and def value is &quot;FALSE&quot;
+	 **/
+	public boolean DII(String tool, String def) {
+<span class="nc bnc" id="L27" title="All 4 branches missed.">		return tool.equals(&quot;TRUE&quot;) &amp;&amp; def.equals(&quot;FALSE&quot;);</span>
+	}
+	/**
+	 * Method for detection if Defects Absence Correctly Identified(ADCI)
+	 * @param tool PMD or iPlasma tool
+	 * @param def Defect for comparation
+	 * @return return true if tool and def are both &quot;FALSE&quot;
+	 **/
+	public boolean ADCI(String tool, String def) {
+<span class="nc bnc" id="L36" title="All 4 branches missed.">		return tool.equals(&quot;FALSE&quot;) &amp;&amp; def.equals(&quot;FALSE&quot;);</span>
+	}
+	/**
+	 * Method for detection if Defects Absence Incorrectly Identified (ADII)
+	 * @param tool PMD or iPlasma tool
+	 * @param def Defect for comparation 
+	 * @return return true if tool value is &quot;FALSE&quot; and def value is &quot;TRUE&quot;
+	 **/
+	public boolean ADII(String tool, String def) {
+<span class="nc bnc" id="L45" title="All 4 branches missed.">		return tool.equals(&quot;FALSE&quot;) &amp;&amp; def.equals(&quot;TRUE&quot;);</span>
+	}
+	/**
+	 * Defines the quality factor by given parameters and returns respective String
+	 * @param tool PMD or iPlasma tool
+	 * @param def Defect for comparation
+	 * @exception InputMismatchException When the input is not the expected
+	 * @exception NullPointerException When the input is null
+	 * @return return quality factor by string
+	 **/
+	public String whatFactor(String tool, String def) {
+		try {
+<span class="nc bnc" id="L57" title="All 2 branches missed.">			if(DCI(tool, def)) {</span>
+<span class="nc" id="L58">				return &quot;DCI&quot;;</span>
+			}
+<span class="nc bnc" id="L60" title="All 2 branches missed.">			else if(DII(tool, def)) {</span>
+<span class="nc" id="L61">				return &quot;DII&quot;;</span>
+			}
+<span class="nc bnc" id="L63" title="All 2 branches missed.">			else if(ADCI(tool, def)) {</span>
+<span class="nc" id="L64">				return &quot;ADCI&quot;;</span>
+			}
+<span class="nc bnc" id="L66" title="All 2 branches missed.">			else if(ADII(tool, def)) {</span>
+<span class="nc" id="L67">				return &quot;ADII&quot;;</span>
+			}
+		}
+<span class="nc" id="L70">	catch(InputMismatchException e){</span>
+<span class="nc" id="L71">		System.out.println(&quot;Input errado!&quot;);</span>
+<span class="nc" id="L72">		e.printStackTrace();</span>
+	}
+<span class="nc" id="L74">	catch(NullPointerException e) {</span>
+<span class="nc" id="L75">		System.out.println(&quot;Null input&quot;);</span>
+<span class="nc" id="L76">		e.printStackTrace();</span>
+	}
+
+<span class="nc" id="L79">	return null;</span>
+		
+		
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>com.projeto_es (12/12/2020 20:09:41)</div></body></html>

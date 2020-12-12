@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>QualityFactorsTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">com.projeto_es (12/12/2020 20:09:41)</a> &gt; <a href="../../index.html" class="el_group">com.projeto_es</a> &gt; <a href="../index.html" class="el_bundle">junit</a> &gt; <a href="index.source.html" class="el_package">com.projeto_es</a> &gt; <span class="el_source">QualityFactorsTest.java</span></div><h1>QualityFactorsTest.java</h1><pre class="source lang-java linenums">package com.projeto_es;
+
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.InputMismatchException;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+<span class="pc bpc" id="L12" title="1 of 2 branches missed.">public class QualityFactorsTest {</span>
+	
+	public boolean DCI(String tool, String def) {
+<span class="pc bpc" id="L15" title="2 of 4 branches missed.">		return tool.equals(&quot;TRUE&quot;) &amp;&amp; def.equals(&quot;TRUE&quot;);</span>
+	}
+	public boolean DII(String tool, String def) {
+<span class="pc bpc" id="L18" title="2 of 4 branches missed.">		return tool.equals(&quot;TRUE&quot;) &amp;&amp; def.equals(&quot;FALSE&quot;);</span>
+	}
+	public boolean ADCI(String tool, String def) {
+<span class="pc bpc" id="L21" title="2 of 4 branches missed.">		return tool.equals(&quot;FALSE&quot;) &amp;&amp; def.equals(&quot;FALSE&quot;);</span>
+	}
+	public boolean ADII(String tool, String def) {
+<span class="pc bpc" id="L24" title="2 of 4 branches missed.">		return tool.equals(&quot;FALSE&quot;) &amp;&amp; def.equals(&quot;TRUE&quot;);</span>
+	}
+	
+	@Test
+	public void testDCI() {
+<span class="fc" id="L29">		String tool = &quot;TRUE&quot;;</span>
+<span class="fc" id="L30">		String def = &quot;TRUE&quot;;</span>
+<span class="pc bpc" id="L31" title="2 of 4 branches missed.">		assert(DCI(tool,def) == true);</span>
+<span class="fc" id="L32">	}</span>
+
+	@Test
+	public void testDII() {
+<span class="fc" id="L36">		String tool = &quot;TRUE&quot;;</span>
+<span class="fc" id="L37">		String def = &quot;FALSE&quot;;</span>
+<span class="pc bpc" id="L38" title="2 of 4 branches missed.">		assert(DII(tool,def) == true);</span>
+<span class="fc" id="L39">	}</span>
+
+	@Test
+	public void testADCI() {
+<span class="fc" id="L43">		String tool = &quot;FALSE&quot;;</span>
+<span class="fc" id="L44">		String def = &quot;FALSE&quot;;</span>
+<span class="pc bpc" id="L45" title="2 of 4 branches missed.">		assert(ADCI(tool,def) == true);</span>
+<span class="fc" id="L46">	}</span>
+
+	@Test
+	public void testADII() {
+<span class="fc" id="L50">		String tool = &quot;FALSE&quot;;</span>
+<span class="fc" id="L51">		String def = &quot;TRUE&quot;;</span>
+<span class="pc bpc" id="L52" title="2 of 4 branches missed.">		assert(ADII(tool,def) == true);</span>
+<span class="fc" id="L53">	}</span>
+
+	@Test
+	public void testWhatFactor() {
+<span class="fc" id="L57">		String tool = &quot;TRUE&quot;;</span>
+<span class="fc" id="L58">		String def = &quot;TRUE&quot;;</span>
+<span class="fc" id="L59">		String tool1 = &quot;TRUE&quot;;</span>
+<span class="fc" id="L60">		String tool2 = &quot;FALSE&quot;;</span>
+<span class="fc" id="L61">		String tool3 = &quot;FALSE&quot;;</span>
+<span class="fc" id="L62">		String def1 = &quot;FALSE&quot;;</span>
+<span class="fc" id="L63">		String def2 = &quot;FALSE&quot;;</span>
+<span class="fc" id="L64">		String def3 = &quot;TRUE&quot;;</span>
+			
+<span class="fc" id="L66">				boolean expected = true;</span>
+<span class="pc bpc" id="L67" title="2 of 4 branches missed.">				assert(expected == DCI(tool,def));</span>
+<span class="pc bpc" id="L68" title="2 of 4 branches missed.">				assert(expected == DII(tool1,def1));</span>
+<span class="pc bpc" id="L69" title="2 of 4 branches missed.">				assert(expected == ADCI(tool2,def2));</span>
+<span class="pc bpc" id="L70" title="2 of 4 branches missed.">				assert(expected == ADII(tool3,def3));</span>
+<span class="fc" id="L71">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span>com.projeto_es (12/12/2020 20:09:41)</div></body></html>
