@@ -1,9 +1,15 @@
 package com.projeto_es;
 
-public class LongMethodThresholds extends Thresholds{
+public class LongMethodThresholds{
 	
 	int LOC_metric;
 	int CYCLO_metric;  
+	
+	/**
+	 * 
+	 * @param LOC_metric is the lines of code metric
+	 * @param CYCLO_metric is cyclomatic metric
+	 */
 	
 	LongMethodThresholds(int LOC_metric, int CYCLO_metric){
 		this.LOC_metric = LOC_metric;
@@ -17,7 +23,7 @@ public class LongMethodThresholds extends Thresholds{
 	 * @param CYCLO_metric Threshold metric for cyclomatic complexity of the method
 	 * @return boolean flag, "TRUE" if given method is long
 	 */
-	@Override
+	
 	public boolean isLongMethod (int LOC, int CYCLO, int LOC_metric, int CYCLO_metric) {
 		return (LOC>LOC_metric && CYCLO>CYCLO_metric);
 	}	

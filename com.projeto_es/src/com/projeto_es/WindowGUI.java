@@ -72,7 +72,8 @@ public class WindowGUI {
 	private boolean changesDetected = false;
 
 	/**
-	 * Launch the application.
+	 * Main of graphical user interface
+	 * @param args is command line arguments not needed
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

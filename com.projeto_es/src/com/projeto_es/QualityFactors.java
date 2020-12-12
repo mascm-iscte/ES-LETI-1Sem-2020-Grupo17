@@ -45,6 +45,7 @@ public class QualityFactors  {
 		return tool.equals("FALSE") && def.equals("TRUE");
 	}
 	/**
+	 * Defines the quality factor by given parameters and returns respective String
 	 * @param tool PMD or iPlasma tool
 	 * @param def Defect for comparation
 	 * @exception InputMismatchException When the input is not the expected

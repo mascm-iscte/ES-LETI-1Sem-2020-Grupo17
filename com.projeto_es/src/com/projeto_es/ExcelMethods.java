@@ -83,8 +83,8 @@ public class ExcelMethods {
 	}
 	/**
 	 * 
-	 * @param row
-	 * @param col
+	 * @param row is row number
+	 * @param col is column number
 	 * @return cell contents as a string
 	 */
 	public String getCellContentStr(int row, int col) {
