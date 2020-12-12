@@ -1,6 +1,8 @@
 package com.projeto_es;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,106 +18,78 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.Test;
 
-public class ExcelMethodsTest {
+public class ExcelMethodsTest { 
 	
 	int row, col;
 	String fileDir =  "//home//zagalao//Transferências//Defeitos.xlsx";
-	Workbook wb = getWorkbook(fileDir);
-	Sheet sh = wb.getSheetAt(0);
+	Workbook wb;
+	Sheet sh ;
 	
-	public Workbook getWorkbook(String fileDir) {
-		FileInputStream fis;
-		
-		try {
-		
-			fis = new FileInputStream(fileDir);
-			wb = WorkbookFactory.create(fis);
-			fis.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (EncryptedDocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return wb;
-	}
-	public Sheet getSheet(String sheetName) {
-		return wb.getSheet(sheetName);
-	}
-	public int getRows() {
-		return sh.getLastRowNum() + 1;
-	}
-	
-	public int getCols() {
-		return sh.getRow(0).getLastCellNum();
-	}
-	
-	public String getCellContentStr(int row, int col) {
-		if(col == -1) throw new IllegalArgumentException("Error col not found");
-		FormulaEvaluator objFormulaEvaluator = wb.getCreationHelper().createFormulaEvaluator();
-		DataFormatter objDefaultFormat = new DataFormatter();
-		Cell cell =	sh.getRow(row).getCell(col);
-		objFormulaEvaluator.evaluate(cell);
-		return objDefaultFormat.formatCellValue(cell,objFormulaEvaluator);
-	}
-	public int findColByName(String name) {
-		for (int i  = 0; i < getCols(); i++ ) {
-			if(name.equals(getCellContentStr(0, i))){
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	String file = "//home//zagalao//Transferências//Defeitos.xlsx";
 	@Test
-	public void testGetWorkbook() {
-FileInputStream fis;
-		
-		try {
+	public void testGetWorkbook() throws EncryptedDocumentException, IOException {
+		FileInputStream fis;
+		Workbook wb = null;
 		
 			fis = new FileInputStream(fileDir);
 			wb = WorkbookFactory.create(fis);
 			fis.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (EncryptedDocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		assert(wb != null);
 		assert(wb.getNumberOfSheets() ==1);
-		
 	}
 	@Test
-	public void testGetSheet() {
+	public void testGetSheet() throws EncryptedDocumentException, IOException {
+		FileInputStream fis;
+		Workbook wb = null;
+		Sheet sh = null;
+		
+			fis = new FileInputStream(fileDir);
+			wb = WorkbookFactory.create(fis);
+			fis.close();
+		
+		sh = wb.getSheetAt(0);
 		assert(sh != null);
 		assert(wb.getSheetAt(0).getRow(0).getCell(0)!= null);
 		assert(wb.getSheetAt(0).getRow(1).getCell(0).getNumericCellValue() == 1);
 	}
 	@Test
-	public void testGetRows() {
+	public void testGetRows() throws EncryptedDocumentException, IOException {
+		FileInputStream fis;
+		Workbook wb = null;
+		Sheet sh = null;
+		fis = new FileInputStream(fileDir);
+		wb = WorkbookFactory.create(fis);
+		fis.close();
 		
+		sh = wb.getSheetAt(0);
 		assert(sh.getLastRowNum()>= 0);
 	}
 
 	@Test
-	public void testGetCols() {
+	public void testGetCols() throws EncryptedDocumentException, IOException {
+		FileInputStream fis;
+		Workbook wb = null;
+		Sheet sh = null;
+		
+		fis = new FileInputStream(fileDir);
+		wb = WorkbookFactory.create(fis);
+		fis.close();
+		
+		sh = wb.getSheetAt(0);
 		assert(sh.getRow(0).getLastCellNum()>=0);
 	}
 
 	@Test
-	public void testGetCellContentStr() {
+	public void testGetCellContentStr() throws EncryptedDocumentException, IOException {
+		FileInputStream fis;
+		Workbook wb = null;
+		Sheet sh = null;
+		fis = new FileInputStream(fileDir);
+		wb = WorkbookFactory.create(fis);
+		fis.close();
 		
+		sh = wb.getSheetAt(0);
 		if(col == -1) throw new IllegalArgumentException("Error col not found");
 		FormulaEvaluator objFormulaEvaluator = wb.getCreationHelper().createFormulaEvaluator();
 		DataFormatter objDefaultFormat = new DataFormatter();
@@ -125,57 +99,5 @@ FileInputStream fis;
 		String str = objDefaultFormat.formatCellValue(cell,objFormulaEvaluator);
 		assert(str.equals("MethodID"));
 	}
-
-
-	@Test
-	public void testFindColByName() {
-		
-		String name = "PMD";
-		for (int i  = 0; i < getCols(); i++ ) {
-			if(name.equals(getCellContentStr(0, i))){
-				assert(i == 10);
-			}
-		} 
-			
-	}
-	String name = "PMD";
-	@Test
-	/*
-	 * linkedlist tem valor?
-	 */
 	
-	public void testGetFullColByName() {
-		LinkedList<String> colValues = new LinkedList<String>();
-		
-		int rows = getRows();
-		for( int i = 0; i < rows; i++ )
-			colValues.add(getCellContentStr(i, findColByName(name)));
-		assert(colValues.getFirst().equals(name));
-			
-	}
-	
-	int column = 0;
-	@Test
-	public void testGetFullCol() {
-		LinkedList<String> colValues = new LinkedList<String>();
-		
-		int rows = getRows();
-		for( int i = 0; i < rows; i++ )
-			colValues.add(getCellContentStr(i, column));
-		assert(colValues.getFirst().equals("MethodID"));
-	}
-	/* 
-	 * escolher um valor e converter para bytes (array). setvalue()na celula e faço assert entre o valor escolhido e o valor da celula
-	 */
-	@Test
-	public void testSetValue() {
-		int row = 2;
-		int col = 2;
-		String expected = "Metr";
-		Cell cell =	sh.getRow(row).getCell(col);
-		cell.setCellValue(expected);
-		byte[]expecteds = expected.getBytes();
-		byte[] results = getCellContentStr(row, col).getBytes();
-		assertArrayEquals(expecteds, results);
-	}
 }

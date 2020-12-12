@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.util.InputMismatchException;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class QualityFactorsTest {
@@ -54,33 +55,18 @@ public class QualityFactorsTest {
 	@Test
 	public void testWhatFactor() {
 		String tool = "TRUE";
-		String def = "FALSE";
-			try {
-				if(DCI(tool, def)) {
-					assertTrue("DCI", true);
-				}
-				else if(DII(tool, def)) {
-					assertTrue("DII", true);
-				}
-				else if(ADCI(tool, def)) {
-					assertTrue("ADCI", true);
-				}
-				else if(ADII(tool, def)) {
-					assertTrue("ADII", true);
-				}
-				fail("Expecting InputMismatchException");
-				fail("Expecting NullPointerException");
-			}
-		catch(InputMismatchException e){
-			/*
-			 * assertThat(e.getMessage(), is("false(??)");
-			 */
-		}
-		catch(NullPointerException e) {
-			/*
-			 * assertThat(e.getMessage(), is("false(??)");
-			 */
-		}
+		String def = "TRUE";
+		String tool1 = "TRUE";
+		String tool2 = "FALSE";
+		String tool3 = "FALSE";
+		String def1 = "FALSE";
+		String def2 = "FALSE";
+		String def3 = "TRUE";
+			
+				boolean expected = true;
+				assert(expected == DCI(tool,def));
+				assert(expected == DII(tool1,def1));
+				assert(expected == ADCI(tool2,def2));
+				assert(expected == ADII(tool3,def3));
 	}
-
 }
