@@ -3,7 +3,6 @@ package com.projeto_es;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedList;
 
 import org.apache.poi.EncryptedDocumentException;
 
@@ -31,9 +30,6 @@ public class ExcelMethods {
 		this.sh = sh;
 	}
 	
-	public ExcelMethods() {
-		
-	}
 	/**
 	 * 
 	 * @param wb is a workbook apache poi
@@ -74,13 +70,6 @@ public class ExcelMethods {
 	}
 	
 	/**
-	 * @param sheetName is the name of the sheet you want
-	 * @return return sheet by name
-	 */
-	public Sheet getSheet(String sheetName) {
-		return wb.getSheet(sheetName);
-	}
-	/**
 	 * @return number of rows in current sheet
 	 */
 	public int getRows() {
@@ -107,57 +96,5 @@ public class ExcelMethods {
 		return objDefaultFormat.formatCellValue(cell,objFormulaEvaluator);
 	}
 	
-	/**
-	 * @param name
-	 * @return number of the column with that name ( -1 means not found )
-	 */
-	
-	public int findColByName(String name) {
-		for (int i  = 0; i < getCols(); i++ ) {
-			if(name.equals(getCellContentStr(0, i))){
-				return i;
-			}
-		}
-		return -1;
-	}
-	/**
-	 * 
-	 * @param name
-	 * @return LinkedList with values of the selected column
-	 */
-	public LinkedList<String> getFullColByName(String name) {
-		LinkedList<String> colValues = new LinkedList<String>();
-		int rows = getRows();
-		for( int i = 0; i < rows; i++ )
-			colValues.add(getCellContentStr(i, findColByName(name)));
-		return colValues;		
-	} 
-	
-	/**
-	 * @param col is column
-	 * @return a LinkedList of the selected column 
-	 */
-	public LinkedList<String> getFullCol(int col) {
-		LinkedList<String> colValues = new LinkedList<String>();
-		int rows = getRows();
-		for( int i = 0; i < rows; i++ )
-			colValues.add(getCellContentStr(i, col));
-		return colValues;		
-	}
-	
-	
-	/**
-	 * 
-	 * @param value is the value to set
-	 * @param row is the row
-	 * @param col is column
-	 * 
-	 * Sets value in a cell in current sheet
-	 */
-	public void setValue(String value, int row, int col) {
-		Cell cell =	sh.getRow(row).getCell(col);
-		cell.setCellValue(value);
-	}
-
 
 }
