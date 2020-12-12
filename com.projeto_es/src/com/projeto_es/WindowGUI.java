@@ -179,6 +179,7 @@ public class WindowGUI {
 					model = new DefaultTableModel(data, headers);
 					table.setModel(model);
 					fileExistes = true;
+					changesDetected = true;
 				}
 			}
 
@@ -223,7 +224,7 @@ public class WindowGUI {
 						Object[] options = {"Yes", "No"};
 
 						int n = JOptionPane.showOptionDialog(frmExcelSearch,
-								"Changes found. Update workbook sheet?", "Save",
+								"Update workbook sheet?", "Save",
 								JOptionPane.YES_NO_CANCEL_OPTION,
 								JOptionPane.QUESTION_MESSAGE,
 								null,
@@ -241,7 +242,7 @@ public class WindowGUI {
 							JFileChooser chooser = new JFileChooser(); 
 
 							chooser.setCurrentDirectory(new java.io.File("."));
-							chooser.setDialogTitle("Select directory.");
+							chooser.setDialogTitle("Select Folder.");
 							chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 							int returnVal = chooser.showOpenDialog(parent);     
 							if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -300,7 +301,7 @@ public class WindowGUI {
 					}
 
 				}
-				changesDetected = false;
+				
 				return changesDetected;
 			}});
 
@@ -317,10 +318,7 @@ public class WindowGUI {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				if(!fileExistes) {
-					JOptionPane.showMessageDialog(frmExcelSearch,
-							"No file opened!",
-							"Warning",
-							JOptionPane.WARNING_MESSAGE);
+					showWarning("No file opened!");
 					return;
 				}
 
@@ -350,25 +348,16 @@ public class WindowGUI {
 						makeTableFeature(ATFD,LAA);
 					}
 
-					JOptionPane.showMessageDialog(frmExcelSearch,
-							"Applied default thresholds",
-							"Warning",
-							JOptionPane.WARNING_MESSAGE);
+					showWarning("Applied default thresholds");
 				} else if(n==1) {
 					String LOC = JOptionPane.showInputDialog(frmExcelSearch, "Enter new LOC threshold:");
 					if(LOC == null) {
-						JOptionPane.showMessageDialog(frmExcelSearch,
-								"Error please add a value.",
-								"Warning",
-								JOptionPane.WARNING_MESSAGE);
+						showWarning("Error please add a value.");
 						return;
 					}
 					String CYCLO = JOptionPane.showInputDialog(frmExcelSearch, "Enter new CYCLO threshold:");
 					if(CYCLO == null) {
-						JOptionPane.showMessageDialog(frmExcelSearch,
-								"Error please add a value.",
-								"Warning",
-								JOptionPane.WARNING_MESSAGE);
+						showWarning("Error please add a value.");
 						return;
 					}
 					makeTableLongMethod(LOC, CYCLO);
@@ -376,28 +365,19 @@ public class WindowGUI {
 
 					String ATFD = JOptionPane.showInputDialog(frmExcelSearch, "Enter new ATFD threshold:");
 					if(ATFD == null) {
-						JOptionPane.showMessageDialog(frmExcelSearch,
-								"Error please add a value.",
-								"Warning",
-								JOptionPane.WARNING_MESSAGE);
+						showWarning("Error please add a value.");
 						return;
 					}
 					String LAA = JOptionPane.showInputDialog(frmExcelSearch, "Enter new LAA threshold:");
 					if(LAA == null) {
-						JOptionPane.showMessageDialog(frmExcelSearch,
-								"Error please add a value.",
-								"Warning",
-								JOptionPane.WARNING_MESSAGE);
+						showWarning("Error please add a value.");
 						return;
 					}
 					makeTableFeature(ATFD, LAA);
 
 				}else if(n==3){
 					// add method here
-					JOptionPane.showMessageDialog(frmExcelSearch,
-							"Applied Created thresholds",
-							"Warning",
-							JOptionPane.WARNING_MESSAGE);
+					showWarning("Applied Created thresholds");
 				}
 
 
@@ -676,7 +656,16 @@ public class WindowGUI {
 						.addContainerGap())
 				);
 		frmExcelSearch.getContentPane().setLayout(groupLayout);
-	}}
+	}
+	
+	private void showWarning(String war){	
+		JOptionPane.showMessageDialog(frmExcelSearch,
+			war,
+			"Warning",
+			JOptionPane.WARNING_MESSAGE);
+	}
+	
+}
 
 
 
