@@ -4,12 +4,16 @@ public class LongMethodThresholds extends Thresholds{
 	
 	int LOC_metric;
 	int CYCLO_metric;  
-	
+	/**
+	 * Constructor for LongMethodThresold
+	 * @param LOC_metric Number of lines of code of the method
+	 * @param CYCLO_metric CYCLO cyclomatic complexity of the method
+	 */
 	LongMethodThresholds(int LOC_metric, int CYCLO_metric){
 		this.LOC_metric = LOC_metric;
 		this.CYCLO_metric = CYCLO_metric;
 	}
-	/**
+	/** 
 	 * Method for classification of the method. Return "TRUE" if both are bigger than the correspondent default metric
 	 * @param LOC Number of lines of code of the method
 	 * @param CYCLO cyclomatic complexity of the method 
