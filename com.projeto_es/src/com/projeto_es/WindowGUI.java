@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 
 
 import org.apache.poi.ss.usermodel.Workbook;
-
 import org.apache.poi.ss.usermodel.Cell;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -31,6 +30,7 @@ import java.awt.event.WindowListener;
 import java.io.FileOutputStream;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Vector;
 
 import javax.swing.GroupLayout;
@@ -349,7 +349,6 @@ public class WindowGUI {
 						makeTableFeature(ATFD,LAA);
 					}
 
-					showWarning("Applied default thresholds");
 				} else if(n==1) {
 					String LOC = JOptionPane.showInputDialog(frmExcelSearch, "Enter new LOC threshold:");
 					if(LOC == null) {
@@ -389,6 +388,8 @@ public class WindowGUI {
 			public void makeTableFeature(String ATFD, String LAA) {
 				int ATFD_metric = Integer.parseInt(ATFD);
 				double LAA_metric = Double.parseDouble(LAA);
+				double DCI = 0, DII = 0, ADCI = 0, ADII = 0;
+				double DCI1 = 0, DII1 = 0, ADCI1 = 0, ADII1 = 0;
 				sub_headers.add("MethodID");
 				sub_headers.add("Defeito iPlasma");
 				sub_headers.add("Defeito PMD");
@@ -449,12 +450,20 @@ public class WindowGUI {
 							String qualityMethod;
 							QualityFactors factor = new QualityFactors();
 							qualityMethod = factor.whatFactor(iPlasma, isFeatureEnvy);
+							if(qualityMethod.equals("DCI")) DCI++;
+							if(qualityMethod.equals("DII")) DII++;
+							if(qualityMethod.equals("ADCI")) ADCI++;
+							if(qualityMethod.equals("ADII")) ADII++;
 							sub_rows.add(qualityMethod);
 						}
 						else if (j >= method.getCols()) {
 							String qualityMethod;
 							QualityFactors factor = new QualityFactors();
 							qualityMethod = factor.whatFactor(PMD, isFeatureEnvy);
+							if(qualityMethod.equals("DCI")) DCI1++;
+							if(qualityMethod.equals("DII")) DII1++;
+							if(qualityMethod.equals("ADCI")) ADCI1++;
+							if(qualityMethod.equals("ADII")) ADII1++;
 							sub_rows.add(qualityMethod);
 						}
 						else{
@@ -466,11 +475,11 @@ public class WindowGUI {
 					}fe_values.add(fe_rows);
 					sub_values.add(sub_rows);
 				}
-
 				DefaultTableModel long_model = new DefaultTableModel(fe_values,headers);
 				final DefaultTableModel sub_model = new DefaultTableModel(sub_values, sub_headers);
 				long_table.setModel(long_model);
 				sub_table.setModel(sub_model);
+				
 				sub_headers.clear();
 				long_table.setAutoCreateRowSorter(true);
 				sub_table.setAutoCreateRowSorter(true);
@@ -498,7 +507,7 @@ public class WindowGUI {
 				sub_footer.setEditable(false);
 
 				sub_frame.add(sub_footer, BorderLayout.SOUTH);
-
+				showDefects(DCI, DII, ADCI, ADII, DCI1, DII1, ADCI1, ADII1, "is_feature_envy");
 			}
 			
 			/**
@@ -509,6 +518,8 @@ public class WindowGUI {
 			public void makeTableLongMethod(String LOC, String CYCLO) {
 				int LOC_metric = Integer.parseInt(LOC);
 				int CYCLO_metric = Integer.parseInt(CYCLO);
+				double DCI = 0, DII = 0, ADCI = 0, ADII = 0;
+				double DCI1 = 0, DII1 = 0, ADCI1 = 0, ADII1 = 0;
 				LongMethodThresholds longMethod = new LongMethodThresholds (LOC_metric, CYCLO_metric);
 				JTable long_table = new JTable();
 				JTable sub_table = new JTable();
@@ -569,12 +580,20 @@ public class WindowGUI {
 							String qualityMethod;
 							QualityFactors factor = new QualityFactors();
 							qualityMethod = factor.whatFactor(iPlasma, isLongMethod);
+							if(qualityMethod.equals("DCI")) DCI++;
+							if(qualityMethod.equals("DII")) DII++;
+							if(qualityMethod.equals("ADCI")) ADCI++;
+							if(qualityMethod.equals("ADII")) ADII++;
 							sub_rows.add(qualityMethod);
 						}
 						else if (j >= method.getCols()) {
 							String qualityMethod;
 							QualityFactors factor = new QualityFactors();
 							qualityMethod = factor.whatFactor(PMD, isLongMethod);
+							if(qualityMethod.equals("DCI")) DCI1++;
+							if(qualityMethod.equals("DII")) DII1++;
+							if(qualityMethod.equals("ADCI")) ADCI1++;
+							if(qualityMethod.equals("ADII")) ADII1++;
 							sub_rows.add(qualityMethod);
 						}
 
@@ -587,7 +606,7 @@ public class WindowGUI {
 					}loc_values.add(loc_rows);
 					sub_values.add(sub_rows);
 				}
-
+				
 				DefaultTableModel long_model = new DefaultTableModel(loc_values,headers);
 				DefaultTableModel sub_model = new DefaultTableModel(sub_values, sub_headers);
 				long_table.setModel(long_model);
@@ -618,9 +637,9 @@ public class WindowGUI {
 				sub_footer.setText("Metrics: LOC = "+ LOC + " CYCLO = " + CYCLO + " (is_long_method)");
 				sub_footer.setEditable(false);
 				sub_frame.add(sub_footer, BorderLayout.SOUTH);
-
-
+				showDefects(DCI, DII, ADCI, ADII, DCI1, DII1, ADCI1, ADII1, "is_long_method");
 			}
+
 		});
 
 
@@ -664,6 +683,42 @@ public class WindowGUI {
 			war,
 			"Warning",
 			JOptionPane.WARNING_MESSAGE);
+	}
+	
+	private void showDefects(double DCI, double DII, double ADCI, double ADII,
+			double DCI1, double DII1, double ADCI1, double ADII1, String type) {
+		
+		double total = DCI + DII + ADCI + ADII;
+		DecimalFormat nf = new DecimalFormat("#.00");
+		double dci_per = DCI*100/total, dii_per = DII*100/total, adci_per = ADCI*100/total, adii_per = ADII*100/total;
+		double dci_per1 = DCI1*100/total, dii_per1 = DII1*100/total, adci_per1 = ADCI1*100/total, adii_per1 = ADII1*100/total;
+		
+		String war = "IPlasma Ocurrences" + System.lineSeparator()  
+				+ "DCI = " + (int) DCI + " (" + nf.format(dci_per)+"%) " 
+				+ System.lineSeparator()
+				+ "DII = " + (int) DII + " (" + nf.format(dii_per)+"%)"
+				+ System.lineSeparator() 
+				+ "ADCI = " + (int) ADCI + " (" + nf.format(adci_per)+"%) "
+				+ System.lineSeparator()
+				+ "ADII = " + (int) ADII + " (" + nf.format(adii_per)+"%) "
+				+ System.lineSeparator()
+		;
+		war = war + System.lineSeparator() 
+			+ "PMD Ocurrences" + System.lineSeparator() 
+			+ "DCI = " + (int) DCI1 + " (" + nf.format(dci_per1)+"%) " 
+			+ System.lineSeparator()
+			+ "DII = " + (int) DII1 + " (" + nf.format(dii_per1)+"%)" 
+			+ System.lineSeparator()
+			+ "ADCI = " + (int) ADCI1 + " (" + nf.format(adci_per1)+"%) "
+			+ System.lineSeparator()
+			+ "ADII = " + (int) ADII1 + " (" + nf.format(adii_per1)+"%) "
+		;
+		
+		JOptionPane.showMessageDialog(frmExcelSearch,
+				war,
+				"Defects Results: " + type,
+				JOptionPane.WARNING_MESSAGE);
+		
 	}
 	
 }
